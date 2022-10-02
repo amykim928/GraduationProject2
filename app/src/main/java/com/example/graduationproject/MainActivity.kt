@@ -3,6 +3,7 @@ package com.example.graduationproject
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -33,9 +34,11 @@ class MainActivity : AppCompatActivity() {
 
         }
         bn_.selectedItemId = R.id.menu_home
+
     }
 
-    private fun changeFragment(fragment: Fragment) {
+    fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.fl_, fragment).commit()
     }
+
 }
