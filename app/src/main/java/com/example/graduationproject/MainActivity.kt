@@ -8,14 +8,22 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-
     private val fl: FrameLayout by lazy{
-        findViewById(R.id.fl_)
+        findViewById(R.id.frameLayout)
     }
+
+//    private val home = HomeFragment()
+//    private val search = SearchFragment()
+//    private val add = AddFragment()
+//    private val closet = ClosetFragment()
+//    private val setting = SettingFragment()
+
+    //lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         val bn_ = findViewById<BottomNavigationView>(R.id.bn_)
         //supportFragmentManager.beginTransaction().add(fl.id, HomeFragment()).commit()
@@ -34,11 +42,9 @@ class MainActivity : AppCompatActivity() {
 
         }
         bn_.selectedItemId = R.id.menu_home
-
     }
 
-    fun changeFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.fl_, fragment).commit()
+    private fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit()
     }
-
 }
