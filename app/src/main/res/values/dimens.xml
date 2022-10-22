@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="design_bottom_navigation_height" tools:override="true">70dp</dimen>
+    <dimen name="design_bottom_navigation_height">70dp</dimen>
 </resources>
