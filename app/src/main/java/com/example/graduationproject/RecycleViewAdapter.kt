@@ -32,7 +32,7 @@ class RecycleViewAdapter(
         private val clothImageText = itemView.findViewById<TextView>(R.id.clothImageText)
 
         fun bind(clothData: clothData){
-            clothImageText.text = clothData.cl_pd_num
+            clothImageText.text = clothData.cl_intro
             Glide.with(itemView).load(clothData.img_url).into(clothImage)
         }
     }
