@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.graduationproject.dataset.clothData
+import com.example.graduationproject.dbhelper.DbHelper
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -23,10 +25,11 @@ private var brand_name = listOf<String>(
 )
 
 class SearchResultActivity  : AppCompatActivity() {
+    lateinit var localDB: DbHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result)
-
+        localDB = DbHelper(this)
         var keyword = intent.getStringExtra("keyword").toString() //검색 화면에서 입력한 키워드 받기
 
         val keywordResultTitle = findViewById<TextView>(R.id.keywordResultTitle)
@@ -61,16 +64,17 @@ class SearchResultActivity  : AppCompatActivity() {
                 clothList.clear()
                 for(doc in result) {
                     Log.d("tag: ", "${doc.id} => ${doc.data}")
-                    clothList.add(
-                        clothData(doc.data.get("brand_id") as Long,
-                            doc.data.get("category_id") as String,
-                            doc.data.get("cl_intro") as String,
-                            doc.data.get("cl_pd_num") as String,
-                            doc.data.get("color") as String,
-                            doc.data.get("id") as Long,
-                            doc.data.get("img_url") as String,
-                            doc.data.get("style") as String) //이후 검색 결과 화면에서 옷을 선택한 후에 나오는 화면을 위해 데이터 가공하여 추가
-                    )
+
+                    val cl=  clothData(doc.data.get("brand_id") as Long,
+                        doc.data.get("category_id") as String,
+                        doc.data.get("cl_intro") as String,
+                        doc.data.get("cl_pd_num") as String,
+                        doc.data.get("color") as String,
+                        doc.data.get("id") as Long,
+                        doc.data.get("img_url") as String,
+                        doc.data.get("style") as String) //이후 검색 결과 화면에서 옷을 선택한 후에 나오는 화면을 위해 데이터 가공하여 추가
+                    clothList.add(cl)
+                    localDB.getCloth(cl)
                 }
                 recycleViewAdapter.clothList = clothList
                 recycleViewAdapter.notifyDataSetChanged() //adapter 새로고침
@@ -81,5 +85,8 @@ class SearchResultActivity  : AppCompatActivity() {
             .addOnFailureListener{ exception ->
                 Log.w("tag: ", "Error getting doc", exception)
             }
+            Log.i("tag : ","DataBase Test1")
+
+
     }
 }
