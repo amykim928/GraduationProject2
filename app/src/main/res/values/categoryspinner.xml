@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_array">
+        <item>탑</item>
+        <item>블라우스</item>
+        <item>티셔츠</item>
+        <item>니트웨어</item>
+        <item>셔츠</item>
+        <item>브라탑</item>
+        <item>후드티</item>
+        <item>청바지</item>
+        <item>스커트</item>
+        <item>레깅스</item>
+        <item>조거팬츠</item>
+        <item>코트</item>
+        <item>재킷</item>
+        <item>패딩</item>
+        <item>가디건</item>
+        <item>짚업</item>
+        <item>드레스</item>
+        <item>점프수트</item>
+        <item>베스트</item>
+    </string-array>
+</resources>
+
