@@ -1,5 +1,6 @@
 package com.example.graduationproject
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
@@ -75,6 +76,10 @@ class AddDataActivity : AppCompatActivity() {
         initbox()
         binding.imageView2.setImageBitmap(bitmap)
         init()
+        binding.recommendButton.setOnClickListener {
+            val intent= Intent(this,AddDataActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 

@@ -28,7 +28,7 @@
         android:background="#D4D2D9" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/recommendImage"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         tools:srcCompat="@tools:sample/avatars" />
@@ -94,7 +94,7 @@
         <Spinner
             android:id="@+id/category_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1" />
 
     </LinearLayout>
@@ -109,14 +109,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="스타일" />
+            android:text="원하는 스타일" />
 
         <Spinner
             android:id="@+id/style_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/recommendButton"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="추천하기" />
 
 </LinearLayout>
