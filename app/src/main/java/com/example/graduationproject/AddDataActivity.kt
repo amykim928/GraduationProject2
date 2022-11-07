@@ -7,6 +7,7 @@ import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Base64
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -14,15 +15,30 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.graduationproject.classfier.YoloClassfier
 import com.example.graduationproject.classfier.YoloInterfaceClassfier
 import com.example.graduationproject.databinding.ActivityAddDataBinding
+import com.example.graduationproject.dataset.API
+import com.example.graduationproject.dataset.ImgDataModel
 
 import com.example.graduationproject.env.ImageUtils
 import com.example.graduationproject.tracker.MultiBoxTracker
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 
 class AddDataActivity : AppCompatActivity() {
     private lateinit var binding:ActivityAddDataBinding
     private lateinit var bitmap: Bitmap
+
+
+    //retrofit
+    lateinit var mRetrofit: Retrofit // 사용할 레트로핏 객체입니다.
+    lateinit var mRetrofitAPI: API.RetrofitAPI // 레트로핏 api객체입니다.
+    lateinit var mCallImg:Call<String>
 
 
     lateinit var resultList : List<YoloInterfaceClassfier.Recognition>
@@ -74,14 +90,32 @@ class AddDataActivity : AppCompatActivity() {
         bitmap=BitmapFactory.decodeFile(cacheFile)
 
         initbox()
-        binding.imageView2.setImageBitmap(bitmap)
+        binding.recommendImage.setImageBitmap(bitmap)
         init()
         binding.recommendButton.setOnClickListener {
             val intent= Intent(this,AddDataActivity::class.java)
             startActivity(intent)
         }
+        setRetrofit()
     }
-
+    private fun setRetrofit() {
+        //레트로핏으로 가져올 url설정하고 세팅
+        val gson : Gson = GsonBuilder()
+            .setLenient()
+            .create()
+        mRetrofit = Retrofit
+            .Builder()
+            .baseUrl(getString(R.string.baseUrl))
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+        //http://10.0.2.2:5000  //에뮬레이터 구동
+        // http://192.168.115.236:5000</string>    핫스팟시,
+        //인터페이스로 만든 레트로핏 api요청 받는 것 변수로 등록
+        mRetrofitAPI = mRetrofit.create(API.RetrofitAPI::class.java)
+        Log.i("tag retrofit init :","start")
+        mCallImg=mRetrofitAPI.postImgStyle(bitmapToString(bitmap))
+        mCallImg.enqueue(mRetrofitCallback)
+    }
 
     fun init(){
         val style_items = resources.getStringArray(R.array.style_array)
@@ -163,4 +197,44 @@ class AddDataActivity : AppCompatActivity() {
 
 
     }
+
+
+    private val mRetrofitCallback = (object : retrofit2.Callback<String> {
+    override fun onResponse(call: Call<String>, response: Response<String>) {
+        val result = response.body()
+      //  bit=stringToBitmap(result!!)
+        if (result != null) {
+            Log.i("tag retrofit :",result)
+        }
+    }
+
+    override fun onFailure(call: Call<String>, t: Throwable) {
+        Log.i("tag retrofit :",t.message.toString())
+    }
+
+
+})//Json객체를 응답받는 콜백 객체
+
+
+    private fun stringToBitmap(encodedString: String): Bitmap {
+
+        val encodeByte = Base64.decode(encodedString, Base64.DEFAULT)
+
+        return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
+    }
+
+
+    private fun bitmapToString(bitmap: Bitmap): String {
+
+        val byteArrayOutputStream = ByteArrayOutputStream()
+
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+
+        val byteArray = byteArrayOutputStream.toByteArray()
+
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
+
+
+
 }
