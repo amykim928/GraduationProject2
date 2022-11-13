@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/inter_600"
-        android:text="ABCDEABCDE"
+        android:text="RUMOS"
         android:textColor="@color/purple_500"
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"

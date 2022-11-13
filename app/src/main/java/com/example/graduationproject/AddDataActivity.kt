@@ -12,11 +12,14 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import com.example.graduationproject.classfier.YoloClassfier
 import com.example.graduationproject.classfier.YoloInterfaceClassfier
 import com.example.graduationproject.databinding.ActivityAddDataBinding
 import com.example.graduationproject.dataset.API
+import com.example.graduationproject.dataset.ImageFeatures
 import com.example.graduationproject.dataset.ImgDataModel
+import com.example.graduationproject.dataset.getImages
 
 import com.example.graduationproject.env.ImageUtils
 import com.example.graduationproject.tracker.MultiBoxTracker
@@ -26,19 +29,20 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.IOException
+import java.io.*
 
 class AddDataActivity : AppCompatActivity() {
     private lateinit var binding:ActivityAddDataBinding
     private lateinit var bitmap: Bitmap
 
+    var text=""
 
     //retrofit
     lateinit var mRetrofit: Retrofit // 사용할 레트로핏 객체입니다.
     lateinit var mRetrofitAPI: API.RetrofitAPI // 레트로핏 api객체입니다.
     lateinit var mCallImg:Call<String>
+
+    lateinit var getImages:Call<getImages>
 
 
     lateinit var resultList : List<YoloInterfaceClassfier.Recognition>
@@ -68,7 +72,7 @@ class AddDataActivity : AppCompatActivity() {
     //모델을 가볍게 쓰기 위해 양자화를 쓰는 경우도 있긴한데, 전 안씁니다.
     private val TF_OD_API_IS_QUANTIZED = false
 
-    //나중에 모델 더 좋게 학습하면 모델이름을 바꾸거나 업데이트하겠죠.
+    //나중에 모델 더 좋게 학습하면 모델이름을 바꾸거나 업데이트하겠죠.  "yolov4-tiny-416.tflite"
     //모델 이름과 경로, obj.txt는 이미지의 카테고리입니다(셔츠, 팬츠 같은)
     private val TF_OD_API_MODEL_FILE = "yolov4_2.tflite"
 
@@ -88,13 +92,28 @@ class AddDataActivity : AppCompatActivity() {
 
         val cacheFile = File(cacheDir, "cropped.jpg").path
         bitmap=BitmapFactory.decodeFile(cacheFile)
-
+        init()
         initbox()
         binding.recommendImage.setImageBitmap(bitmap)
-        init()
+
         binding.recommendButton.setOnClickListener {
-            val intent= Intent(this,AddDataActivity::class.java)
-            startActivity(intent)
+            Log.i("tag 3:","recommendBtn")
+            val bits=binding.recommendImage.drawable.toBitmap()
+            var cloth_type=""
+            val underlist= listOf<Int>(7,8,9,10,11)
+            Log.i("tag 3:",binding.categorySpinner.id.toString())
+            if (binding.categorySpinner.id in underlist ){
+                cloth_type="하의"
+            }else{
+                cloth_type="상의"
+            }
+            
+            val styleInt=binding.styleSpinner.id
+            val hashMap= hashMapOf(Pair(bitmapToString(bits),ImageFeatures(cloth_type,0)))
+            getImages=mRetrofitAPI.postPredict(hashMap)
+            getImages.enqueue(mRetrofitCallback2)
+
+
         }
         setRetrofit()
     }
@@ -126,6 +145,9 @@ class AddDataActivity : AppCompatActivity() {
 
         val myadapter_category=ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,category_items)
         binding.categorySpinner.adapter=myadapter_category
+        binding.backButton.setOnClickListener {
+            finish()
+        }
 
     }
 
@@ -191,20 +213,56 @@ class AddDataActivity : AppCompatActivity() {
                 max_confidence=result.confidence
             }
         }
-        Toast.makeText(this,mappping[resultList[max_idx].detectedClass],Toast.LENGTH_SHORT).show()
-        binding.editTextT1.setText(mappping[resultList[max_idx].detectedClass])
-
+//
+        if(resultList.isNotEmpty()){
+            mappping[resultList[max_idx].detectedClass]?.let { Log.i("check resultlist", it) }
+            binding.categorySpinner.setSelection(resultList[max_idx].detectedClass)
+        }
 
 
     }
 
+    private val mRetrofitCallback2 =(object  :retrofit2.Callback<getImages>{
+        override fun onResponse(call: Call<getImages>, response: Response<getImages>) {
+            val result=response.body()
+            val recommendString= result?.recommend_img
+            val simliarity= result?.simliarity?.toFloat()
+            val styleString= result?.style_img
 
+            val recommendImg0= recommendString?.let { stringToBitmap(it) }
+            val styImg=styleString?.let{stringToBitmap(it)}
+            text=simliarity.toString()
+
+            val storage=cacheDir
+            val RecommendName= "savedRecommend.jpg"
+            val StyleName = "style.jpg"
+            val tempFile = File(storage, RecommendName)
+            tempFile.createNewFile()
+            if (recommendImg0 != null) {
+                recommendImg0.compress(Bitmap.CompressFormat.JPEG,100, FileOutputStream(tempFile))
+            }
+            val tempFile2=File(storage,StyleName)
+            if (styImg != null) {
+                styImg.compress(Bitmap.CompressFormat.JPEG,100, FileOutputStream(tempFile2))
+            }
+            Log.i("tag retrofit2 :",simliarity.toString())
+            val intent= Intent(this@AddDataActivity,RecommendActivity::class.java)
+            intent.putExtra("simliarity",simliarity.toString())
+            startActivity(intent)
+        }
+
+        override fun onFailure(call: Call<getImages>, t: Throwable) {
+            Log.i("tag retrofit2 :",t.message.toString())
+        }
+
+
+    })
     private val mRetrofitCallback = (object : retrofit2.Callback<String> {
     override fun onResponse(call: Call<String>, response: Response<String>) {
         val result = response.body()
-      //  bit=stringToBitmap(result!!)
         if (result != null) {
             Log.i("tag retrofit :",result)
+            binding.styleSpinner.setSelection(result.toInt())
         }
     }
 
@@ -234,6 +292,7 @@ class AddDataActivity : AppCompatActivity() {
 
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
+
 
 
 

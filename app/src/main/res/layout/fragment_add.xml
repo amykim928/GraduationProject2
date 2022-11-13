@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/inter_600"
         android:gravity="center"
-        android:text="ABCDEABCDE"
+        android:text="RUMOS"
         android:textColor="@color/purple_500"
         android:textSize="24dp" />
 
@@ -85,8 +85,17 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:id="@+id/cropImageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </com.theartofdev.edmodo.cropper.CropImageView>
 
     <LinearLayout
         android:id="@+id/buttonLinearLayout"
@@ -105,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="뒤로가기" />
 
         <Space
             android:layout_width="wrap_content"
@@ -117,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="카테고리 찾기" />
 
         <Space
             android:layout_width="wrap_content"
@@ -125,5 +134,41 @@
             android:layout_weight="1" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/buttonLinearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/cancelButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="뒤로가기" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/getClassButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="의상 잘라내기" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </LinearLayout>
