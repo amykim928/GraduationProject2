@@ -1,7 +1,9 @@
 package com.example.graduationproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +40,10 @@ class SearchResultActivity  : AppCompatActivity() {
         keywordBtn.setOnClickListener {
             val keywordStr = keywordText.text.toString()
             keyword = keywordStr
+            finish()
+            val intent = getIntent()
+            intent.putExtra("keyword", keyword)
+            startActivity(intent)
         }
 
         var keywordField = "category_id"
@@ -46,11 +52,13 @@ class SearchResultActivity  : AppCompatActivity() {
             keyword = brand_name.indexOf(keyword).toString()
         } //사용자가 브랜드를 찾는 경우 필드를 brand_id로 변경하고, brand 리스트에 있는 index 값을 받아옴
 
-        val clothResultLayout = findViewById<RecyclerView>(R.id.clothResultLayout)
-        clothResultLayout.addItemDecoration(VerticalItemDecorator(20))
-        clothResultLayout.addItemDecoration(HorizontalItemDecorator(20))
+        val clothResultView = findViewById<RecyclerView>(R.id.clothResultView)
+        clothResultView.addItemDecoration(VerticalItemDecorator(20))
+        clothResultView.addItemDecoration(HorizontalItemDecorator(20))
         recycleViewAdapter = RecycleViewAdapter(this)
-        clothResultLayout.adapter = recycleViewAdapter //검색 결과 목록용 adapter
+        clothResultView.adapter = recycleViewAdapter //검색 결과 목록용 adapter
+
+        val emptyResultView = findViewById<TextView>(R.id.emptyResultView)
 
         val db = Firebase.firestore
         db.collection("clothData") //파이어베이스
@@ -59,24 +67,30 @@ class SearchResultActivity  : AppCompatActivity() {
             .get() //필드에 해당하는 데이터 가져오기
             .addOnSuccessListener { result -> //성공시
                 clothList.clear()
-                for(doc in result) {
-                    Log.d("tag: ", "${doc.id} => ${doc.data}")
-                    clothList.add(
-                        clothData(doc.data.get("brand_id") as Long,
-                            doc.data.get("category_id") as String,
-                            doc.data.get("cl_intro") as String,
-                            doc.data.get("cl_pd_num") as String,
-                            doc.data.get("color") as String,
-                            doc.data.get("id") as Long,
-                            doc.data.get("img_url") as String,
-                            doc.data.get("style") as String) //이후 검색 결과 화면에서 옷을 선택한 후에 나오는 화면을 위해 데이터 가공하여 추가
-                    )
-                }
-                recycleViewAdapter.clothList = clothList
-                recycleViewAdapter.notifyDataSetChanged() //adapter 새로고침
+                if (result.isEmpty){
+                    clothResultView.setVisibility(View.GONE);
+                    emptyResultView.setVisibility(View.VISIBLE);
+                } else {
+                    for(doc in result) {
+                        Log.d("tag: ", "${doc.id} => ${doc.data}")
+                        clothList.add(
+                            clothData(doc.data.get("brand_id") as Long,
+                                doc.data.get("category_id") as String,
+                                doc.data.get("cl_intro") as String,
+                                doc.data.get("cl_pd_num") as String,
+                                doc.data.get("color") as String,
+                                doc.data.get("id") as Long,
+                                doc.data.get("img_url") as String,
+                                doc.data.get("style") as String) //이후 검색 결과 화면에서 옷을 선택한 후에 나오는 화면을 위해 데이터 가공하여 추가
+                        )
+                    }
+                    recycleViewAdapter.clothList = clothList
+                    recycleViewAdapter.notifyDataSetChanged() //adapter 새로고침
 
-                val gridLayoutManager = GridLayoutManager(applicationContext, 2) //2칸으로 나오게
-                clothResultLayout.layoutManager = gridLayoutManager
+                    val gridLayoutManager = GridLayoutManager(applicationContext, 2) //2칸으로 나오게
+                    clothResultView.layoutManager = gridLayoutManager
+                    emptyResultView.setVisibility(View.GONE);
+                }
             }
             .addOnFailureListener{ exception ->
                 Log.w("tag: ", "Error getting doc", exception)
