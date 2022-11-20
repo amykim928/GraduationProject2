@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="유사도" />
+            android:text="입력 의상과의 거리차이" />
 
         <EditText
             android:id="@+id/editTextT1"

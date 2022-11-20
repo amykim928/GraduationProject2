@@ -101,15 +101,15 @@ class AddDataActivity : AppCompatActivity() {
             val bits=binding.recommendImage.drawable.toBitmap()
             var cloth_type=""
             val underlist= listOf<Int>(7,8,9,10,11)
-            Log.i("tag 3:",binding.categorySpinner.id.toString())
-            if (binding.categorySpinner.id in underlist ){
+            Log.i("tag 3:",binding.categorySpinner.selectedItemId.toString())
+            if (binding.categorySpinner.selectedItemId.toInt() in underlist ){
                 cloth_type="하의"
             }else{
                 cloth_type="상의"
             }
             
-            val styleInt=binding.styleSpinner.id
-            val hashMap= hashMapOf(Pair(bitmapToString(bits),ImageFeatures(cloth_type,0)))
+            val styleInt=binding.styleSpinner.selectedItemId.toInt()
+            val hashMap= hashMapOf(Pair(bitmapToString(bits),ImageFeatures(cloth_type,styleInt)))
             getImages=mRetrofitAPI.postPredict(hashMap)
             getImages.enqueue(mRetrofitCallback2)
 
@@ -196,7 +196,6 @@ class AddDataActivity : AppCompatActivity() {
             ).show()
             finish()
         }
-        Toast.makeText(this,"의상 검출",Toast.LENGTH_SHORT).show()
         //비동기적으로
         //의상 탐지를 위해 detector에 bitmap이미지를 넣습니다.
         val results: List<YoloInterfaceClassfier.Recognition>? = detector.recognizeImage(bitmap)
@@ -206,7 +205,7 @@ class AddDataActivity : AppCompatActivity() {
             Toast.makeText(this,"의상검출 실패",Toast.LENGTH_SHORT).show()
         }
         var max_idx=0
-        var max_confidence:Float=0.0F
+        var max_confidence:Float=0.1F
         for ((idx,result) in resultList.withIndex()){
             if(result.confidence!! >max_confidence){
                 max_idx=idx
