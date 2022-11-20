@@ -42,11 +42,11 @@ class MainActivity : AppCompatActivity() {
         bn_.setOnItemSelectedListener { item ->
             changeFragment(
                 when(item.itemId){
-                    R.id.menu_home ->AddFragment()
-                    R.id.menu_search ->AddFragment()
+                    R.id.menu_home ->HomeFragment()
+                    R.id.menu_search ->SearchFragment()
                     R.id.menu_add -> AddFragment()
-                    R.id.menu_closet -> AddFragment()
-                    else -> AddFragment()
+                    R.id.menu_closet -> ClosetFragment()
+                    else -> SettingFragment()
                 }
             )
             true
