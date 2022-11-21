@@ -1,5 +1,6 @@
 package com.example.graduationproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -22,6 +23,7 @@ class ResultDetailActivity: AppCompatActivity() {
         val resultBrand = findViewById<TextView>(R.id.resultBrand)
         val resultStyle = findViewById<TextView>(R.id.resultStyle)
         val saveBtn = findViewById<Button>(R.id.saveBtn)
+        val backBtn=findViewById<Button>(R.id.backBtn)
 
         resultCategory.text = "카테고리: " + category_id
         resultBrand.text = "브랜드: " + brand_id
@@ -30,6 +32,12 @@ class ResultDetailActivity: AppCompatActivity() {
 
         saveBtn.setOnClickListener { //저장하기 버튼 클릭 시
 
+        }
+        backBtn.setOnClickListener { //저장하기 버튼 클릭 시
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            intent.putExtra("fragment_id",1)
+            startActivity(intent)
+            finish()
         }
     }
 
