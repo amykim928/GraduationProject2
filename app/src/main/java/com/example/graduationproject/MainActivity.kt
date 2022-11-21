@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         val permission3 =ContextCompat.checkSelfPermission(
             this, WRITE_EXTERNAL_STORAGE
         )
-
+        val intentBackBtn=intent.getIntExtra("fragment_id",-1)
         val bn_ = findViewById<BottomNavigationView>(R.id.bn_)
         //supportFragmentManager.beginTransaction().add(fl.id, HomeFragment()).commit()
 
@@ -52,7 +52,32 @@ class MainActivity : AppCompatActivity() {
             true
 
         }
-        bn_.selectedItemId = R.id.menu_add
+        when(intentBackBtn){
+            -1 -> {
+                HomeFragment()
+                bn_.selectedItemId = R.id.menu_home
+            }
+            0 -> {
+                HomeFragment()
+                bn_.selectedItemId = R.id.menu_home
+            }
+            1->{
+                SearchFragment()
+                bn_.selectedItemId = R.id.menu_search
+            }
+            2 ->{
+                AddFragment()
+                bn_.selectedItemId = R.id.menu_add
+            }
+            3 -> {
+                ClosetFragment()
+                bn_.selectedItemId = R.id.menu_closet
+            }
+            else ->{
+                SettingFragment()
+                bn_.selectedItemId = R.id.menu_closet
+            }
+        }
 
 
 
