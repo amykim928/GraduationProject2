@@ -1,6 +1,7 @@
 package com.example.graduationproject
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,14 @@ class RecycleViewAdapter(
         fun bind(clothData: clothData){
             clothImageText.text = clothData.cl_intro
             Glide.with(itemView).load(clothData.img_url).into(clothImage)
+            clothImage.setOnClickListener{
+                Intent(context, ResultDetailActivity::class.java).apply {
+                    putExtra("img_url", clothData.img_url)
+                    putExtra("category_id", clothData.category_id)
+                    putExtra("brand_id", clothData.brand_id)
+                    putExtra("style", clothData.style)
+                }.run { context.startActivity(this) }
+            }
         }
     }
 }

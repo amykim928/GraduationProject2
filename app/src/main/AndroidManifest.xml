@@ -61,6 +61,10 @@
             android:exported="false"
             android:theme="@style/Theme.Graduationproject.NoActionBar" />
         <activity
+            android:name=".ResultDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Graduationproject.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
