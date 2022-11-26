@@ -1,6 +1,5 @@
 package com.example.graduationproject
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.graduationproject.dataset.clothData
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -74,7 +74,8 @@ class SearchResultActivity  : AppCompatActivity() {
                     for(doc in result) {
                         Log.d("tag: ", "${doc.id} => ${doc.data}")
                         clothList.add(
-                            clothData(doc.data.get("brand_id") as Long,
+                            clothData(
+                                doc.data.get("brand_id") as Long,
                                 doc.data.get("category_id") as String,
                                 doc.data.get("cl_intro") as String,
                                 doc.data.get("cl_pd_num") as String,
