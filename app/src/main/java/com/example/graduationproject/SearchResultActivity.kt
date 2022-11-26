@@ -47,10 +47,9 @@ class SearchResultActivity  : AppCompatActivity() {
         }
 
         var keywordField = "category_id"
-        if(brand_name.contains(keyword)){
-            keywordField = "brand_id"
-            keyword = brand_name.indexOf(keyword).toString()
-        } //사용자가 브랜드를 찾는 경우 필드를 brand_id로 변경하고, brand 리스트에 있는 index 값을 받아옴
+            if(brand_name.contains(keyword)){
+                keywordField = "brand_id"
+        } //사용자가 브랜드를 찾는 경우 필드를 brand_id로 변경
 
         val clothResultView = findViewById<RecyclerView>(R.id.clothResultView)
         clothResultView.addItemDecoration(VerticalItemDecorator(20))
@@ -62,8 +61,7 @@ class SearchResultActivity  : AppCompatActivity() {
 
         val db = Firebase.firestore
         db.collection("clothData") //파이어베이스
-            .whereEqualTo(keywordField, if (keywordField === "category_id") keyword else keyword.toInt())
-            //해당 필드와 같은 경우. 파이어베이스 brand_id는 int 값이므로 해당 형식으로 변경
+            .whereEqualTo(keywordField, keyword)
             .get() //필드에 해당하는 데이터 가져오기
             .addOnSuccessListener { result -> //성공시
                 clothList.clear()
@@ -74,7 +72,7 @@ class SearchResultActivity  : AppCompatActivity() {
                     for(doc in result) {
                         Log.d("tag: ", "${doc.id} => ${doc.data}")
                         clothList.add(
-                            clothData(doc.data.get("brand_id") as Long,
+                            clothData(doc.data.get("brand_id") as String,
                                 doc.data.get("category_id") as String,
                                 doc.data.get("cl_intro") as String,
                                 doc.data.get("cl_pd_num") as String,
