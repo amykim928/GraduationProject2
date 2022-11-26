@@ -43,13 +43,10 @@ class AddFragment: Fragment(R.layout.fragment_add) {
         _binding = com.example.graduationproject.databinding.FragmentAddBinding.inflate(inflater,container,false)
         val activity = activity as MainActivity
 
-        //Uri exposure 무시
-        //Uri exposure 무시
-        val builder = VmPolicy.Builder()
-        StrictMode.setVmPolicy(builder.build())
-
-
-
+//        //Uri exposure 무시
+//        //Uri exposure 무시
+//        val builder = VmPolicy.Builder()
+//        StrictMode.setVmPolicy(builder.build())
 
         binding.cancelButton.setOnClickListener {
             binding.imageView.visibility=View.GONE
@@ -77,7 +74,7 @@ class AddFragment: Fragment(R.layout.fragment_add) {
             }
 
 
-            val intent=Intent(activity,AddDataActivity::class.java)
+            val intent=Intent(activity,AddDataToFirebase::class.java)
             startActivity(intent)
 
         }
@@ -131,7 +128,7 @@ class AddFragment: Fragment(R.layout.fragment_add) {
 
 
     private fun cropImage(uri: Uri?) {
-        val crop =CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON)  // 크롭 위한 가이드 열어서 크롭할 이미지 받아오기
+        CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON)  // 크롭 위한 가이드 열어서 크롭할 이미지 받아오기
             .setCropShape(CropImageView.CropShape.RECTANGLE)            // 사각형으로 자르기
             .start(activity as MainActivity,this@AddFragment)
 

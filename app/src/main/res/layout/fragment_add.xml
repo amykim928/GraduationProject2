@@ -35,10 +35,10 @@
 
         <ImageView
             android:id="@+id/addFromCamera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/search_purple" />
+            app:srcCompat="@drawable/camera500" />
 
         <TextView
             android:id="@+id/textCamera"
