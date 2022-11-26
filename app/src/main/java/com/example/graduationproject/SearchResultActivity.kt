@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.graduationproject.dataset.clothData
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -47,8 +48,8 @@ class SearchResultActivity  : AppCompatActivity() {
         }
 
         var keywordField = "category_id"
-            if(brand_name.contains(keyword)){
-                keywordField = "brand_id"
+        if(brand_name.contains(keyword)){
+            keywordField = "brand_id"
         } //사용자가 브랜드를 찾는 경우 필드를 brand_id로 변경
 
         val clothResultView = findViewById<RecyclerView>(R.id.clothResultView)

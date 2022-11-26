@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.graduationproject.dataset.clothData
 
 class RecycleViewAdapter(
     private val context: Context) : RecyclerView.Adapter<RecycleViewAdapter.ItemViewHolder>(){

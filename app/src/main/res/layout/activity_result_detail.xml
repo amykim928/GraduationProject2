@@ -8,7 +8,7 @@
         android:id="@+id/addTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LUMOS"
+        android:text="RUMOS"
         android:textColor="@color/purple_500"
         android:textSize="24dp"
         android:fontFamily="@font/inter_600"
