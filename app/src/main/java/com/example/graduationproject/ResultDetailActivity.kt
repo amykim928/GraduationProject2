@@ -18,7 +18,7 @@ class ResultDetailActivity: AppCompatActivity() {
 
         var img_url = intent.getStringExtra("img_url").toString()
         var category_id = intent.getStringExtra("category_id").toString()
-        var brand_id = intent.getIntExtra("brand_id",0).toString()
+        var brand_id = intent.getStringExtra("brand_id").toString()
         var style = intent.getStringExtra("style").toString()
         var cl_intro = intent.getStringExtra("cl_intro").toString()
 
