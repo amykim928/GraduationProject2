@@ -12,6 +12,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class ResultDetailActivity: AppCompatActivity() {
+
+    private var brand_name = listOf<String>(
+        "","블랙야크", "유니클로", "abc마트", "", "X", "", "와릿이즌", "예일", "클로티"
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result_detail)
@@ -30,7 +35,7 @@ class ResultDetailActivity: AppCompatActivity() {
         val saveBtn = findViewById<Button>(R.id.saveBtn)
 
         resultCategory.text = "카테고리: " + category_id
-        resultBrand.text = "브랜드: " + brand_id
+        resultBrand.text = "브랜드: " + brand_name[brand_id.toInt()]
         resultStyle.text = "스타일: " + style
         Glide.with(this).load(img_url).into(resultImage)
 
