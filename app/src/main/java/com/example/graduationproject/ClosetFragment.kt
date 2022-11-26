@@ -50,22 +50,22 @@ class ClosetFragment: Fragment(){
                         Log.d("tag: ", "${doc.id} => ${doc.data}")
                         closetList.add(
                             closetData(
-                                doc.data.get("brand_id") as Long,
+//                                doc.data.get("brand_id") as Long,
                                 doc.data.get("category_id") as String,
-                                doc.data.get("cl_intro") as String,
-                                doc.data.get("cl_pd_num") as String,
-                                doc.data.get("color") as String,
-                                doc.data.get("id") as Long,
+//                                doc.data.get("cl_intro") as String,
+//                                doc.data.get("cl_pd_num") as String,
+//                                doc.data.get("color") as String,
+//                                doc.data.get("id") as Long,
                                 doc.data.get("img_url") as String,
                                 doc.data.get("style") as String)  //이후 검색 결과 화면에서 옷을 선택한 후에 나오는 화면을 위해 데이터 가공하여 추가
-                        )
+                            )
                     }
                     closetRecycleViewAdapter.closetList = closetList
                     closetRecycleViewAdapter.notifyDataSetChanged() //adapter 새로고침
 
                     val gridLayoutManager = GridLayoutManager(context, 2) //2칸으로 나오게
                     closetResultView?.layoutManager = gridLayoutManager
-                    emptyClosetResultView?.setVisibility(View.GONE);
+                    emptyClosetResultView?.setVisibility(View.GONE)
                 }
             }
             .addOnFailureListener{ exception ->
@@ -73,5 +73,4 @@ class ClosetFragment: Fragment(){
             }
         return view
     }
-
 }

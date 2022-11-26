@@ -45,6 +45,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".AddByUrlActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Graduationproject.NoActionBar" />
+        <activity
+            android:name=".ClosetDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Graduationproject.NoActionBar" />
+        <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
         <activity

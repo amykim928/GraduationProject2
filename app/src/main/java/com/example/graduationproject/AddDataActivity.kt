@@ -7,12 +7,16 @@ import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Selection.setSelection
 import android.util.Base64
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
+import com.bumptech.glide.Glide
 import com.example.graduationproject.classfier.YoloClassfier
 import com.example.graduationproject.classfier.YoloInterfaceClassfier
 import com.example.graduationproject.databinding.ActivityAddDataBinding
@@ -30,6 +34,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.*
+import kotlin.reflect.typeOf
 
 class AddDataActivity : AppCompatActivity() {
     private lateinit var binding:ActivityAddDataBinding
@@ -81,7 +86,11 @@ class AddDataActivity : AppCompatActivity() {
     var mappping = mutableMapOf<Int, String>(0 to "탑", 1 to "블라우스", 2 to "티셔츠", 3 to "니트웨어",
         4 to "셔츠", 5 to "브라탑", 6 to "후드티", 7 to "청바지", 8 to "팬츠", 9 to "스커트",
         10 to "레깅스", 11 to "조거팬츠" , 12 to "코트",  13 to "재킷", 14 to "점퍼", 15 to "패딩",
-        16 to "베스트", 17 to "가디건", 18 to "짚업", 19 to "드레스" , 20 to "점프수트"
+        16 to "베스트", 17 to "가디건", 18 to "짚업", 19 to "드레스" , 20 to "점프수트", 21 to "맨투맨"
+    )
+
+    var mappping1 = mutableMapOf<Int, String>(0 to "트래디셔널", 1 to "매니시", 2 to "페미닌", 3 to "에스닉",
+        4 to "컨템포러리", 5 to "내추럴", 6 to "젠더플루이드", 7 to "스포티", 8 to "서브컬쳐", 9 to "캐주얼"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,9 +101,32 @@ class AddDataActivity : AppCompatActivity() {
 
         val cacheFile = File(cacheDir, "cropped.jpg").path
         bitmap=BitmapFactory.decodeFile(cacheFile)
+        var cimg_url = intent.getStringExtra("img_url").toString()
+        var ccategory_id = intent.getStringExtra("category_id").toString()
+        var cstyle = intent.getStringExtra("style").toString()
+
+        var closetImage = findViewById<ImageView>(R.id.recommendImage)
         init()
         initbox()
-        binding.recommendImage.setImageBitmap(bitmap)
+
+        if(intent.hasExtra("img_url")){
+            Glide.with(this).load(cimg_url).into(closetImage)
+//            Log.d("####################cstyle: ", cstyle)
+//            Log.d("####################ccategory_id: ", ccategory_id)
+            val res_style = mappping1.filterValues { it == cstyle }.keys.toString()
+            val res_style_toInt = res_style.replace("[^0-9]".toRegex(), "").toInt()
+//            Log.d("#################res_style: ", "$res_style_toInt")
+            binding.styleSpinner.setSelection(res_style_toInt)
+            val res_category = mappping.filterValues { it == ccategory_id }.keys.toString()
+            val res_category_toInt = res_category.replace("[^0-9]".toRegex(), "").toInt()
+//            Log.d("#################res_category: ", "${a}")
+            binding.categorySpinner.setSelection(res_category_toInt)
+
+        } else{
+            binding.recommendImage.setImageBitmap(bitmap)
+        }
+
+
 
         binding.recommendButton.setOnClickListener {
             Log.i("tag 3:","recommendBtn")
@@ -107,7 +139,7 @@ class AddDataActivity : AppCompatActivity() {
             }else{
                 cloth_type="상의"
             }
-            
+
             val styleInt=binding.styleSpinner.id
             val hashMap= hashMapOf(Pair(bitmapToString(bits),ImageFeatures(cloth_type,0)))
             getImages=mRetrofitAPI.postPredict(hashMap)
@@ -138,10 +170,12 @@ class AddDataActivity : AppCompatActivity() {
 
     fun init(){
         val style_items = resources.getStringArray(R.array.style_array)
-        val category_items=resources.getStringArray(R.array.category_array)
+        val category_items = resources.getStringArray(R.array.category_array)
 
-        val myadapter_style=ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,style_items)
+        val myadapter_style = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,style_items)
         binding.styleSpinner.adapter=myadapter_style
+//        Log.d("##########################", "$style_items")
+//        Log.d("##########################myadapter_style", "$myadapter_style")
 
         val myadapter_category=ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,category_items)
         binding.categorySpinner.adapter=myadapter_category
