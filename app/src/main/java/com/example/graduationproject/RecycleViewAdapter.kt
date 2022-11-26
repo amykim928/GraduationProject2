@@ -40,7 +40,7 @@ class RecycleViewAdapter(
                 Intent(context, ResultDetailActivity::class.java).apply {
                     putExtra("img_url", clothData.img_url)
                     putExtra("category_id", clothData.category_id)
-                    putExtra("brand_id", clothData.brand_id)
+                    putExtra("brand_id", clothData.brand_id.toString())
                     putExtra("style", clothData.style)
                 }.run { context.startActivity(this) }
             }
