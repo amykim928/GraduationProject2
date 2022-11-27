@@ -90,7 +90,7 @@ class AddDataActivity : AppCompatActivity() {
     )
 
     var mappping1 = mutableMapOf<Int, String>(0 to "트래디셔널", 1 to "매니시", 2 to "페미닌", 3 to "에스닉",
-        4 to "컨템포러리", 5 to "내추럴", 6 to "젠더플루이드", 7 to "스포티", 8 to "서브컬쳐", 9 to "캐주얼"
+        4 to "컨템포러리", 5 to "내추럴", 6 to "젠더플루이드", 7 to "스포티", 8 to "서브컬쳐", 9 to "캐주얼", 10 to "로맨틱", 11 to "클래식"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,7 +119,7 @@ class AddDataActivity : AppCompatActivity() {
             binding.styleSpinner.setSelection(res_style_toInt)
             val res_category = mappping.filterValues { it == ccategory_id }.keys.toString()
             val res_category_toInt = res_category.replace("[^0-9]".toRegex(), "").toInt()
-//            Log.d("#################res_category: ", "${a}")
+//            Log.d("#################res_category: ", "${res_category_toInt}")
             binding.categorySpinner.setSelection(res_category_toInt)
 
         } else{
@@ -140,7 +140,7 @@ class AddDataActivity : AppCompatActivity() {
                 cloth_type="상의"
             }
 
-            val styleInt=binding.styleSpinner.id
+            val styleInt=binding.styleSpinner.selectedItemId.toInt()
             val hashMap= hashMapOf(Pair(bitmapToString(bits),ImageFeatures(cloth_type,0)))
             getImages=mRetrofitAPI.postPredict(hashMap)
             getImages.enqueue(mRetrofitCallback2)
