@@ -140,7 +140,7 @@ class AddDataActivity : AppCompatActivity() {
                 cloth_type="상의"
             }
 
-            val styleInt=binding.styleSpinner.id
+            val styleInt=binding.styleSpinner.selectedItemId.toInt()
             val hashMap= hashMapOf(Pair(bitmapToString(bits),ImageFeatures(cloth_type,0)))
             getImages=mRetrofitAPI.postPredict(hashMap)
             getImages.enqueue(mRetrofitCallback2)

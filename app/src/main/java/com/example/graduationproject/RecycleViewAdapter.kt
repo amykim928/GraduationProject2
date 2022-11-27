@@ -1,5 +1,6 @@
 package com.example.graduationproject
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -42,7 +43,10 @@ class RecycleViewAdapter(
                     putExtra("category_id", clothData.category_id)
                     putExtra("brand_id", clothData.brand_id)
                     putExtra("style", clothData.style)
-                }.run { context.startActivity(this) }
+                }.run { context.startActivity(this)
+//                    (context as Activity).finish()
+                }
+
             }
         }
     }
