@@ -77,7 +77,7 @@ class AddFragment: Fragment(R.layout.fragment_add) {
             }
 
 
-            val intent=Intent(activity,AddDataActivity::class.java)
+            val intent=Intent(activity,AddDataToFirebaseActivity::class.java)
             startActivity(intent)
 
         }
