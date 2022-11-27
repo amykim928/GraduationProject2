@@ -75,7 +75,7 @@ class SearchResultActivity  : AppCompatActivity() {
                         Log.d("tag: ", "${doc.id} => ${doc.data}")
                         clothList.add(
                             clothData(
-                                doc.data.get("brand_id") as Long,
+                                doc.data.get("brand_id") as String,
                                 doc.data.get("category_id") as String,
                                 doc.data.get("cl_intro") as String,
                                 doc.data.get("cl_pd_num") as String,
