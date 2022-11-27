@@ -16,7 +16,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/inter_600"
         android:gravity="center"
-        android:text="ABCDEABCDE"
+        android:text="RUMOS"
         android:textColor="@color/purple_500"
         android:textSize="24dp" />
 
@@ -28,7 +28,7 @@
         android:background="#D4D2D9" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/recommendImage"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         tools:srcCompat="@tools:sample/avatars" />
@@ -45,15 +45,12 @@
             android:layout_weight="1"
             android:text="의상 종류" />
 
-        <EditText
-            android:id="@+id/editTextT1"
+        <Spinner
+            android:id="@+id/category_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:textSize="24dp" />
+            android:layout_height="48dp"
+            android:layout_weight="1" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -91,12 +88,6 @@
             android:layout_weight="1"
             android:text="의상 종류" />
 
-        <Spinner
-            android:id="@+id/category_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -109,14 +100,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="스타일" />
+            android:text="원하는 스타일" />
 
         <Spinner
             android:id="@+id/style_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="뒤로가기" />
+
+        <Button
+            android:id="@+id/recommendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="추천하기" />
     </LinearLayout>
 
 </LinearLayout>

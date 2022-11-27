@@ -130,7 +130,7 @@ class YoloClassfier : YoloInterfaceClassfier {
     }
 
     override fun getObjThresh(): Float {
-        return 0.5f
+        return 0.3f
     }
 
 

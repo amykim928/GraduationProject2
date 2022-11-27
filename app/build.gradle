@@ -66,6 +66,10 @@ dependencies {
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
 
+//    implementation("com.vanniktech:android-image-cropper:4.5.0")
+////    implementation("com.vanniktech:android-image-cropper:4.5.0")
+
+
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation 'org.tensorflow:tensorflow-lite-gpu:2.3.0'
     implementation 'org.tensorflow:tensorflow-lite:2.3.0'
