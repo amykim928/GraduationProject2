@@ -24,7 +24,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="75dp"
-        android:layout_marginBottom="434dp"
         android:background="#D4D2D9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +47,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/goRecommendBtn"
             android:layout_width="wrap_content"
@@ -64,6 +73,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/closetImage"
             tools:ignore="MissingConstraints" />
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/deleteBtn"-->
+<!--            android:layout_width="51dp"-->
+<!--            android:layout_height="47dp"-->
+<!--            android:background="#00FFFFFF"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/closetImage"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/closetImage"-->
+<!--            app:srcCompat="@drawable/ic_outline_delete_24" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
