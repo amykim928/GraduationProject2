@@ -74,14 +74,14 @@
             app:layout_constraintTop_toBottomOf="@+id/closetImage"
             tools:ignore="MissingConstraints" />
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/deleteBtn"-->
-<!--            android:layout_width="51dp"-->
-<!--            android:layout_height="47dp"-->
-<!--            android:background="#00FFFFFF"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/closetImage"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/closetImage"-->
-<!--            app:srcCompat="@drawable/ic_outline_delete_24" />-->
+        <ImageButton
+            android:id="@+id/deleteBtn"
+            android:layout_width="51dp"
+            android:layout_height="47dp"
+            android:background="#00FFFFFF"
+            app:layout_constraintEnd_toEndOf="@+id/closetImage"
+            app:layout_constraintTop_toTopOf="@+id/closetImage"
+            app:srcCompat="@drawable/ic_outline_delete_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
