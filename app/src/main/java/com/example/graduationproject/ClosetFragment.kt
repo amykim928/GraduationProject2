@@ -1,5 +1,6 @@
 package com.example.graduationproject
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.dataset.closetData
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+
 //import kotlinx.android.synthetic.main.fragment_closet.*
 
 private var closetList = mutableListOf<closetData>()
@@ -54,7 +60,7 @@ class ClosetFragment: Fragment(){
 
                         Log.d("tag category_check: ", category)
                         val img_base64=doc.data.get("img_base64 ") as String
-                        Log.d("tag img_base64: ", img_base64.length.toString())
+//                        Log.d("tag img_base64: ", img_base64.length.toString())
 
                         closetList.add(
                             closetData(category,img_base64,img_url,style)  //이후 검색 결과 화면에서 옷을 선택한 후에 나오는 화면을 위해 데이터 가공하여 추가
@@ -73,4 +79,6 @@ class ClosetFragment: Fragment(){
             }
         return view
     }
+
+
 }

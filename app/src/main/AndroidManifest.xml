@@ -54,10 +54,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddByUrlActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Graduationproject.NoActionBar" />
-        <activity
             android:name=".ClosetDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.Graduationproject.NoActionBar" />

@@ -13,6 +13,10 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.graduationproject.dataset.closetData
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 private fun stringToBitmap(encodedString: String): Bitmap {
@@ -22,8 +26,7 @@ private fun stringToBitmap(encodedString: String): Bitmap {
     return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
 }
 
-class ClosetRecyclerAdapter(
-    private val context: Context) : RecyclerView.Adapter<ClosetRecyclerAdapter.ItemViewHolder>(){
+class ClosetRecyclerAdapter(private val context: Context) : RecyclerView.Adapter<ClosetRecyclerAdapter.ItemViewHolder>(){
 
     var closetList = mutableListOf<closetData>()
 
@@ -42,16 +45,32 @@ class ClosetRecyclerAdapter(
 
     inner class ItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val closetclothImage = itemView.findViewById<ImageView>(R.id.closetclothImage)
-
+        lateinit var bitmap:Bitmap
         fun bind(closetData: closetData){
             if(closetData.img_base64.length>1000){
-                Glide.with(itemView).load(stringToBitmap(closetData.img_base64)).into(closetclothImage)
+                bitmap=stringToBitmap(closetData.img_base64)
+                Glide.with(itemView).load(bitmap).into(closetclothImage)
                 closetclothImage.setOnClickListener{
+                    val storage: File = context.cacheDir
+                    val fileName: String = "cropped.jpg"
+                    val tempFile = File(storage, fileName)
+                    try {
+                        // 자동으로 빈 파일을 생성합니다.
+                        tempFile.createNewFile()
+                        val out = FileOutputStream(tempFile)
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+
+                        out.close()
+                    } catch (e: FileNotFoundException) {
+                        Log.e("MyTag", "FileNotFoundException : " + e.message)
+                    } catch (e: IOException) {
+                        Log.e("MyTag", "IOException : " + e.message)
+                    }
                     Intent(context, ClosetDetailActivity::class.java).apply {
                         putExtra("img_url", closetData.img_url)
                         putExtra("category_id", closetData.category_id)
                         putExtra("style", closetData.style)
-                        putExtra("img_base64",closetData.img_base64)
+                        putExtra("img_base","exist")
                     }.run { context.startActivity(this) }
                 }
 
@@ -69,4 +88,9 @@ class ClosetRecyclerAdapter(
 
         }
     }
+
+    fun saveImg(){
+
+    }
 }
+

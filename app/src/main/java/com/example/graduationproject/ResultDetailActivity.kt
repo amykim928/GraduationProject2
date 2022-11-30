@@ -34,6 +34,7 @@ class ResultDetailActivity: AppCompatActivity() {
 
         val data = hashMapOf(
             "img_url" to intent.getStringExtra("img_url").toString(),
+            "img_base64 " to "",
             "category_id" to intent.getStringExtra("category_id").toString(),
             "brand_id" to intent.getStringExtra("brand_id").toString(),
             "style" to intent.getStringExtra("style").toString()
@@ -66,7 +67,7 @@ class ResultDetailActivity: AppCompatActivity() {
         val saveBtn = findViewById<Button>(R.id.saveBtn)
 
         resultCategory.text = "카테고리: " + category_id
-        resultBrand.text = "브랜드: " + brand_name[brand_id.toInt()]
+        resultBrand.text = "브랜드: " + brand_id
         resultStyle.text = "스타일: " + style
         Glide.with(this).load(img_url).into(resultImage)
 
