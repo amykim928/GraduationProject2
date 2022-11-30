@@ -86,7 +86,7 @@ class AddDataActivity : AppCompatActivity() {
         var closetImage = findViewById<ImageView>(R.id.recommendImage)
         init()
 
-        if(intent.hasExtra("img_base")){
+        if(img_base=="exist"){
             binding.recommendImage.setImageBitmap(bitmap)
 
         } else{
@@ -101,26 +101,24 @@ class AddDataActivity : AppCompatActivity() {
         }
 
 
-
         binding.recommendButton.setOnClickListener {
             Log.i("tag 3:","recommendBtn")
             val bits=binding.recommendImage.drawable.toBitmap()
             var cloth_type=""
             val underlist= listOf<Int>(7,8,9,10,11)
-            Log.i("tag 3:",binding.categorySpinner.id.toString())
-            if (binding.categorySpinner.id in underlist ){
+            Log.i("tag 3:",binding.categorySpinner.selectedItemId.toString())
+            if (binding.categorySpinner.selectedItemId.toInt() in underlist ){
                 cloth_type="하의"
             }else{
                 cloth_type="상의"
             }
 
             val styleInt=binding.styleSpinner.selectedItemId.toInt()
-            val hashMap= hashMapOf(Pair(bitmapToString(bits),ImageFeatures(cloth_type,0)))
+            val hashMap= hashMapOf(Pair(bitmapToString(bits),ImageFeatures(cloth_type,styleInt)))
             getImages=mRetrofitAPI.postPredict(hashMap)
             getImages.enqueue(mRetrofitCallback2)
-
-
         }
+
         setRetrofit()
     }
     private fun setRetrofit() {
