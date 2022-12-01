@@ -1,6 +1,5 @@
 package com.example.graduationproject
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,14 +8,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.dataset.closetData
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
+
 
 //import kotlinx.android.synthetic.main.fragment_closet.*
 
@@ -37,7 +34,9 @@ class ClosetFragment: Fragment(){
         closetResultView?.addItemDecoration(VerticalItemDecorator(20))
         closetResultView?.addItemDecoration(HorizontalItemDecorator(20))
         closetRecycleViewAdapter = context?.let { ClosetRecyclerAdapter(it) }!!
+
         closetResultView?.adapter = closetRecycleViewAdapter
+
 //        val recyclerView1 = view?.findViewById<RecyclerView>(R.id.closetResultView)
 //
 //        recyclerView1?.adapter = context?.let { RecycleViewAdapter(it) }

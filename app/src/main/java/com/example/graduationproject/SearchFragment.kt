@@ -42,12 +42,13 @@ class SearchFragment : Fragment(), View.OnClickListener{
         //최근 사용자가 본 의상 recyclerView에 데이터 가져오기
         //해당 옷 사진 누르면 detail 화면으로 이동(img_url, brand_id, category_id, style 가지고 있음)
         val recentViewRecycle = view?.findViewById<RecyclerView>(R.id.recentViewRecycler)
+
+
         recentRecyclerAdapter = context?.let { RecentRecyclerAdapter(it) }!!
         recentViewRecycle?.adapter = recentRecyclerAdapter
 
         val db = Firebase.firestore
         db.collection("recentItem")//파이어베이스
-//            .orderBy("created_at")
             .get() //필드에 해당하는 데이터 가져오기
             .addOnSuccessListener { result -> //성공시
                 recentList.clear()
@@ -70,7 +71,7 @@ class SearchFragment : Fragment(), View.OnClickListener{
                     recentRecyclerAdapter.recentList = recentList
                     recentRecyclerAdapter.notifyDataSetChanged() //adapter 새로고침
 
-                    val gridLayoutManager = GridLayoutManager(context, 1, LinearLayoutManager.HORIZONTAL, false)
+                    val gridLayoutManager = GridLayoutManager(context, 1, LinearLayoutManager.HORIZONTAL, true)
                     recentViewRecycle?.layoutManager = gridLayoutManager
                 }
             }
