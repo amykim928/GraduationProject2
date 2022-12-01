@@ -12,7 +12,8 @@ data class closetData(
 //    val color:String,
 //    val id: Long,
     val img_url:String,
-    val style: String
+    val style: String,
+    val doc_id: String
     )
     : Serializable
 

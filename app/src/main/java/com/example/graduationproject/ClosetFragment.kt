@@ -52,7 +52,7 @@ class ClosetFragment: Fragment(){
                 }
                 else {
                     for(doc in result) {
-
+                        Log.d("#############doc.id: ", doc.id)
                         val category=doc.data.get("category_id") as String
                         val img_url=doc.data.get("img_url") as String
                         val style =doc.data.get("style") as String
@@ -61,8 +61,10 @@ class ClosetFragment: Fragment(){
                         val img_base64=doc.data.get("img_base64 ") as String
 //                        Log.d("tag img_base64: ", img_base64.length.toString())
 
+                        val doc_id = doc.id
+
                         closetList.add(
-                            closetData(category,img_base64,img_url,style)  //이후 검색 결과 화면에서 옷을 선택한 후에 나오는 화면을 위해 데이터 가공하여 추가
+                            closetData(category, img_base64, img_url, style, doc_id)  //이후 검색 결과 화면에서 옷을 선택한 후에 나오는 화면을 위해 데이터 가공하여 추가
                             )
                     }
                     closetRecycleViewAdapter.closetList = closetList

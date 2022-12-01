@@ -25,17 +25,18 @@ class ClosetDetailActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_closet_detail)
 
-        var cimg_url = intent.getStringExtra("img_url").toString()
-        var ccategory_id = intent.getStringExtra("category_id").toString()
-        var cstyle = intent.getStringExtra("style").toString()
+        val cimg_url = intent.getStringExtra("img_url").toString()
+        val ccategory_id = intent.getStringExtra("category_id").toString()
+        val cstyle = intent.getStringExtra("style").toString()
         val cimg_base=intent.getStringExtra("img_base").toString()
-
+        val cdoc_id = intent.getStringExtra("doc_id").toString()
+        Log.d("####################DOCID: ", cdoc_id)
 
 
         val closetImage = findViewById<ImageView>(R.id.closetImage)
         val goRecommendBtn = findViewById<Button>(R.id.goRecommendBtn)
         val deleteBtn = findViewById<ImageButton>(R.id.deleteBtn)
-        Log.d("####################tag: ", "$ccategory_id")
+        Log.d("####################tag: ", ccategory_id)
         if(cimg_base=="exist"){
             val cacheFile = File(cacheDir, "cropped.jpg").path
             bitmap = BitmapFactory.decodeFile(cacheFile)
@@ -58,11 +59,17 @@ class ClosetDetailActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
-//        val db = Firebase.firestore
-//        deleteBtn.setOnClickListener{
-//            Toast.makeText(applicationContext,"삭제 되었습니다.", Toast.LENGTH_SHORT).show()
-//            db.collection("closetData").document().delete()
-//        }
+        val toClosetIntent = Intent(this, ClosetFragment::class.java)
+        toClosetIntent.putExtra("fragment_id",1)
+        toClosetIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        toClosetIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
+        val db = Firebase.firestore
+        deleteBtn.setOnClickListener{
+            Toast.makeText(applicationContext,"삭제 되었습니다.", Toast.LENGTH_SHORT).show()
+            db.collection("closetData").document(cdoc_id).delete()
+//            startActivity(toClosetIntent)
+        }
     }
 
 

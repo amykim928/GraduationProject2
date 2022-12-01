@@ -47,8 +47,11 @@ class SearchFragment : Fragment(), View.OnClickListener{
         recentRecyclerAdapter = context?.let { RecentRecyclerAdapter(it) }!!
         recentViewRecycle?.adapter = recentRecyclerAdapter
 
+
+
         val db = Firebase.firestore
         db.collection("recentItem")//파이어베이스
+            .orderBy("created_at").limit(10)
             .get() //필드에 해당하는 데이터 가져오기
             .addOnSuccessListener { result -> //성공시
                 recentList.clear()
@@ -63,15 +66,15 @@ class SearchFragment : Fragment(), View.OnClickListener{
                                 doc.data["brand_id"] as String,
                                 doc.data["category_id"] as String,
                                 doc.data["img_url"] as String,
-                                doc.data["style"] as String,
-//                                doc.data["created_at"] as Timestamp
+                                doc.data["style"] as String
+
                             )
                         )
                     }
                     recentRecyclerAdapter.recentList = recentList
                     recentRecyclerAdapter.notifyDataSetChanged() //adapter 새로고침
 
-                    val gridLayoutManager = GridLayoutManager(context, 1, LinearLayoutManager.HORIZONTAL, true)
+                    val gridLayoutManager = GridLayoutManager(context, 1, LinearLayoutManager.HORIZONTAL, false)
                     recentViewRecycle?.layoutManager = gridLayoutManager
                 }
             }

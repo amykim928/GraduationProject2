@@ -11,7 +11,6 @@ class recentData (
 //    val color:String,
 //    val id: Long,
     val img_url:String,
-    val style: String,
-//    val created_at : Timestamp
+    val style: String
 )
     : Serializable

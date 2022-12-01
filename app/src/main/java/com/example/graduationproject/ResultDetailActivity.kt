@@ -1,5 +1,6 @@
 package com.example.graduationproject
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -23,15 +24,17 @@ class ResultDetailActivity: AppCompatActivity() {
         "","블랙야크", "유니클로", "abc마트", "", "X", "", "와릿이즌", "예일", "클로티"
     )
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result_detail)
 
-        val toSearchIntent =Intent(this,MainActivity::class.java)
+        val toSearchIntent =Intent(this, ClosetFragment::class.java)
         toSearchIntent.putExtra("fragment_id",1)
-        toSearchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+        toSearchIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         toSearchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 
+        //recentItem 컬렉션에 넣을 데이터를 hashmap에 담아 recyclerview에 넣어줌
         val data = hashMapOf(
             "img_url" to intent.getStringExtra("img_url").toString(),
             "img_base64 " to "",
@@ -39,8 +42,18 @@ class ResultDetailActivity: AppCompatActivity() {
             "brand_id" to intent.getStringExtra("brand_id").toString(),
             "style" to intent.getStringExtra("style").toString()
         )
+
+        //hashmap의 key와 value는 다른 타입일 수 있지만, key끼리/value끼리는 같은 타입이어야만 함
+        //최신순으로 정렬하고자 날짜 비교를 위해 현재 날짜및시간을 나타내는 것을 숫자로 받으려고 했으나 불가능했고,
+        //orderby()라는 함수를 사용하였지만, String타입이 sorting되었음
+        //그래서 10000000000000에서 created_at으로 받은 숫자를 빼서 sorting 하는 방법을 사용함
 //        data.put("created_at", LocalDateTime.now().toString())
-//        data.put("created_at", System.currentTimeMillis().toString())
+        val a = (10000000000000 - System.currentTimeMillis())
+        data.put("created_at", a.toString())
+        Log.d("################System.currentTimeMillis(): ", "${a.toLong()}")
+        Log.d("################System.currentTimeMillis().toString(): ",
+            (System.currentTimeMillis() * (-1)).toString()
+        )
 
         val db = Firebase.firestore
         db.collection("recentItem").add(data)
@@ -66,7 +79,7 @@ class ResultDetailActivity: AppCompatActivity() {
         val resultStyle = findViewById<TextView>(R.id.resultStyle)
         val saveBtn = findViewById<Button>(R.id.saveBtn)
 
-        resultCategory.text = "카테고리: " + category_id
+        resultCategory.text = "카테고리: $category_id"
         resultBrand.text = "브랜드: " + brand_id
         resultStyle.text = "스타일: " + style
         Glide.with(this).load(img_url).into(resultImage)
@@ -78,8 +91,8 @@ class ResultDetailActivity: AppCompatActivity() {
                 "cl_intro" to intent.getStringExtra("cl_intro").toString(),
                 "img_url" to intent.getStringExtra("img_url").toString(),
                 "category_id" to intent.getStringExtra("category_id").toString(),
-//                "brand_id" to intent.getStringExtra("brand_id").toString(),
-                "style" to intent.getStringExtra("style").toString()
+                "style" to intent.getStringExtra("style").toString(),
+                "img_base64 " to "",
 
             )
             val db = Firebase.firestore
