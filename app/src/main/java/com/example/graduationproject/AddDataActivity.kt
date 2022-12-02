@@ -209,6 +209,8 @@ class AddDataActivity : AppCompatActivity() {
 })//Json객체를 응답받는 콜백 객체
 
 
+
+
     private fun stringToBitmap(encodedString: String): Bitmap {
 
         val encodeByte = Base64.decode(encodedString, Base64.DEFAULT)

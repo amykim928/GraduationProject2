@@ -2,7 +2,10 @@ package com.example.graduationproject
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
@@ -10,16 +13,26 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.graduationproject.dataset.recentData
+import com.bumptech.glide.request.target.CustomTarget
+import com.example.graduationproject.dataset.API
+import com.example.graduationproject.dataset.onlyFeatureVector
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.protobuf.TimestampProto
-import java.sql.Timestamp
-import java.time.LocalDateTime
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.io.ByteArrayOutputStream
 
 
 class ResultDetailActivity: AppCompatActivity() {
-
+    lateinit var mCallImgVector: Call<onlyFeatureVector>
+    lateinit var imageVector:List<Float>
+    lateinit var mRetrofit: Retrofit // 사용할 레트로핏 객체입니다.
+    lateinit var mRetrofitAPI: API.RetrofitAPI // 레트로핏 api객체입니다.
+    lateinit var bitmap: Bitmap
     private var brand_name = listOf<String>(
         "","블랙야크", "유니클로", "abc마트", "", "X", "", "와릿이즌", "예일", "클로티"
     )
@@ -84,6 +97,22 @@ class ResultDetailActivity: AppCompatActivity() {
         resultStyle.text = "스타일: " + style
         Glide.with(this).load(img_url).into(resultImage)
 
+        Glide.with(this)
+            .asBitmap()
+            .load(img_url)
+            .into(object : CustomTarget<Bitmap>(){
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    Log.i("glide bitmap","not ready")
+                }
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
+                ) {
+                    Log.i("glide bitmap","ready")
+                    setRetrofit(resource)
+                    Log.i("glide bitmap",resource.width.toString())
+                }
+            })
 
         saveBtn.setOnClickListener { //저장하기 버튼 클릭 시
 
@@ -93,6 +122,7 @@ class ResultDetailActivity: AppCompatActivity() {
                 "category_id" to intent.getStringExtra("category_id").toString(),
                 "style" to intent.getStringExtra("style").toString(),
                 "img_base64 " to "",
+                "imageVector" to imageVector
 
             )
             val db = Firebase.firestore
@@ -107,6 +137,53 @@ class ResultDetailActivity: AppCompatActivity() {
             startActivity(toSearchIntent)
             finish()
         }
+    }
+    private fun setRetrofit(bitmap: Bitmap) {
+        //레트로핏으로 가져올 url설정하고 세팅
+        val gson : Gson = GsonBuilder()
+            .setLenient()
+            .create()
+        mRetrofit = Retrofit
+            .Builder()
+            .baseUrl(getString(R.string.baseUrl))
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+        //http://10.0.2.2:5000  //에뮬레이터 구동
+        // http://192.168.115.236:5000</string>    핫스팟시,
+        //인터페이스로 만든 레트로핏 api요청 받는 것 변수로 등록
+        mRetrofitAPI = mRetrofit.create(API.RetrofitAPI::class.java)
+
+        Log.i("tag retrofit init :","start")
+
+        mCallImgVector=mRetrofitAPI.postGetFeature(bitmapToString(bitmap))
+        mCallImgVector.enqueue(mRetrofitCallback3)
+    }
+
+    private val mRetrofitCallback3 = (object : retrofit2.Callback<onlyFeatureVector> {
+        override fun onResponse(
+            call: Call<onlyFeatureVector>,
+            response: Response<onlyFeatureVector>
+        ) {
+            Log.i("tag retrofit vector",response.body()?.recommend_feature.toString())
+            imageVector= response.body()?.recommend_feature!!
+        }
+
+        override fun onFailure(call: Call<onlyFeatureVector>, t: Throwable) {
+            Log.i("tag retrofit :", t.message.toString())
+        }
+
+    })
+
+
+    private fun bitmapToString(bitmap: Bitmap): String {
+
+        val byteArrayOutputStream = ByteArrayOutputStream()
+
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+
+        val byteArray = byteArrayOutputStream.toByteArray()
+
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
 }

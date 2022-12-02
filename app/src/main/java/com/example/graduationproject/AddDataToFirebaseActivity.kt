@@ -17,6 +17,7 @@ import com.example.graduationproject.databinding.ActivityAddDataToFirebaseBindin
 import com.example.graduationproject.dataset.API
 import com.example.graduationproject.dataset.ImageFeatures
 import com.example.graduationproject.dataset.getImages
+import com.example.graduationproject.dataset.onlyFeatureVector
 import com.example.graduationproject.env.ImageUtils
 import com.example.graduationproject.tracker.MultiBoxTracker
 import com.google.firebase.firestore.ktx.firestore
@@ -42,9 +43,10 @@ class AddDataToFirebaseActivity : AppCompatActivity() {
     lateinit var mRetrofit: Retrofit // 사용할 레트로핏 객체입니다.
     lateinit var mRetrofitAPI: API.RetrofitAPI // 레트로핏 api객체입니다.
     lateinit var mCallImg: Call<String>
+    lateinit var mCallImgVector: Call<onlyFeatureVector>
 
 
-
+    lateinit var imageVector:List<Float>
     lateinit var resultList: List<YoloInterfaceClassfier.Recognition>
 
     //의상 검출을 위한 변수
@@ -136,8 +138,8 @@ class AddDataToFirebaseActivity : AppCompatActivity() {
                 "img_url" to "null",
                 "category_id" to binding.categorySpinner.selectedItem.toString(),
                 "img_base64 " to bitmapToString(bitmap),
-                "style" to binding.styleSpinner.selectedItem.toString()
-
+                "style" to binding.styleSpinner.selectedItem.toString(),
+                "imageVector" to imageVector
             )
             val db = Firebase.firestore
             db.collection("closetData").add(data)
@@ -153,7 +155,20 @@ class AddDataToFirebaseActivity : AppCompatActivity() {
         }
 
     }
+    private val mRetrofitCallback3 = (object : retrofit2.Callback<onlyFeatureVector> {
+        override fun onResponse(
+            call: Call<onlyFeatureVector>,
+            response: Response<onlyFeatureVector>
+        ) {
+            Log.i("tag retrofit vector",response.body()?.recommend_feature.toString())
+            imageVector= response.body()?.recommend_feature!!
+        }
 
+        override fun onFailure(call: Call<onlyFeatureVector>, t: Throwable) {
+            Log.i("tag retrofit :", t.message.toString())
+        }
+
+    })
 
     private val mRetrofitCallback = (object : retrofit2.Callback<String> {
         override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -278,5 +293,8 @@ class AddDataToFirebaseActivity : AppCompatActivity() {
         Log.i("tag retrofit init :","start")
         mCallImg=mRetrofitAPI.postImgStyle(bitmapToString(bitmap))
         mCallImg.enqueue(mRetrofitCallback)
+
+        mCallImgVector=mRetrofitAPI.postGetFeature(bitmapToString(bitmap))
+        mCallImgVector.enqueue(mRetrofitCallback3)
     }
 }
