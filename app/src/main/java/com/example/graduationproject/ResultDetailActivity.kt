@@ -29,7 +29,7 @@ class ResultDetailActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result_detail)
 
-        val toSearchIntent =Intent(this, ClosetFragment::class.java)
+        val toSearchIntent =Intent(this, MainActivity::class.java)
         toSearchIntent.putExtra("fragment_id",1)
         toSearchIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         toSearchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -43,17 +43,10 @@ class ResultDetailActivity: AppCompatActivity() {
             "style" to intent.getStringExtra("style").toString()
         )
 
-        //hashmap의 key와 value는 다른 타입일 수 있지만, key끼리/value끼리는 같은 타입이어야만 함
-        //최신순으로 정렬하고자 날짜 비교를 위해 현재 날짜및시간을 나타내는 것을 숫자로 받으려고 했으나 불가능했고,
-        //orderby()라는 함수를 사용하였지만, String타입이 sorting되었음
-        //그래서 10000000000000에서 created_at으로 받은 숫자를 빼서 sorting 하는 방법을 사용함
 //        data.put("created_at", LocalDateTime.now().toString())
         val a = (10000000000000 - System.currentTimeMillis())
         data.put("created_at", a.toString())
         Log.d("################System.currentTimeMillis(): ", "${a.toLong()}")
-        Log.d("################System.currentTimeMillis().toString(): ",
-            (System.currentTimeMillis() * (-1)).toString()
-        )
 
         val db = Firebase.firestore
         db.collection("recentItem").add(data)

@@ -70,7 +70,7 @@ class ClosetFragment: Fragment(){
                     closetRecycleViewAdapter.closetList = closetList
                     closetRecycleViewAdapter.notifyDataSetChanged() //adapter 새로고침
 
-                    val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, true) //2칸으로 나오게
+                    val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false) //2칸으로 나오게
                     closetResultView?.layoutManager = gridLayoutManager
                     emptyClosetResultView?.setVisibility(View.GONE)
                 }
