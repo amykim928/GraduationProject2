@@ -25,6 +25,11 @@ class ClosetDetailActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_closet_detail)
 
+        val toClosetIntent = Intent(this, MainActivity::class.java).apply {  }
+        toClosetIntent.putExtra("fragment_id",3)
+        toClosetIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        toClosetIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
         val cimg_url = intent.getStringExtra("img_url").toString()
         val ccategory_id = intent.getStringExtra("category_id").toString()
         val cstyle = intent.getStringExtra("style").toString()
@@ -59,16 +64,14 @@ class ClosetDetailActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
-        val toClosetIntent = Intent(this, ClosetFragment::class.java)
-        toClosetIntent.putExtra("fragment_id",1)
-        toClosetIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        toClosetIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
 
         val db = Firebase.firestore
         deleteBtn.setOnClickListener{
             Toast.makeText(applicationContext,"삭제 되었습니다.", Toast.LENGTH_SHORT).show()
             db.collection("closetData").document(cdoc_id).delete()
-//            startActivity(toClosetIntent)
+            startActivity(toClosetIntent)
+            finish()
         }
     }
 
