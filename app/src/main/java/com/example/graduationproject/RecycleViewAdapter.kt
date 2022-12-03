@@ -1,15 +1,24 @@
 package com.example.graduationproject
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.graduationproject.dataset.clothData
+import com.example.graduationproject.dataset.recentData
+import com.example.graduationproject.dbhelper.DbHelper.Companion.img_url
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+
+
 
 class RecycleViewAdapter(
     private val context: Context) : RecyclerView.Adapter<RecycleViewAdapter.ItemViewHolder>(){
@@ -37,13 +46,20 @@ class RecycleViewAdapter(
             clothImageText.text = clothData.cl_intro
             Glide.with(itemView).load(clothData.img_url).into(clothImage)
             clothImage.setOnClickListener{
+
                 Intent(context, ResultDetailActivity::class.java).apply {
                     putExtra("img_url", clothData.img_url)
                     putExtra("category_id", clothData.category_id)
                     putExtra("brand_id", clothData.brand_id.toString())
                     putExtra("style", clothData.style)
-                }.run { context.startActivity(this) }
+                }.run { context.startActivity(this)
+//                    (context as Activity).finish()
+                }
+
+
             }
         }
     }
+
+
 }

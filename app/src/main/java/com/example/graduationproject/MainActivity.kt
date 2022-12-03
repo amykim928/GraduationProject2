@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
             this, WRITE_EXTERNAL_STORAGE
         )
 
+        val intentBackBtn=intent.getIntExtra("fragment_id",-1)
         val bn_ = findViewById<BottomNavigationView>(R.id.bn_)
-        //supportFragmentManager.beginTransaction().add(fl.id, HomeFragment()).commit()
 
         bn_.setOnItemSelectedListener { item ->
             changeFragment(
@@ -52,9 +52,32 @@ class MainActivity : AppCompatActivity() {
             true
 
         }
-        bn_.selectedItemId = R.id.menu_add
-
-
+        when(intentBackBtn){
+            -1 -> {
+                HomeFragment()
+                bn_.selectedItemId = R.id.menu_home
+            }
+            0 -> {
+                HomeFragment()
+                bn_.selectedItemId = R.id.menu_home
+            }
+            1->{
+                SearchFragment()
+                bn_.selectedItemId = R.id.menu_search
+            }
+            2 ->{
+                AddFragment()
+                bn_.selectedItemId = R.id.menu_add
+            }
+            3 -> {
+                ClosetFragment()
+                bn_.selectedItemId = R.id.menu_closet
+            }
+            else ->{
+                SettingFragment()
+                bn_.selectedItemId = R.id.menu_closet
+            }
+        }
 
         if (permission == PackageManager.PERMISSION_DENIED || permission2 == PackageManager.PERMISSION_DENIED || permission3 == PackageManager.PERMISSION_DENIED) {
             // 마쉬멜로우 이상버전부터 권한을 물어본다
@@ -65,9 +88,6 @@ class MainActivity : AppCompatActivity() {
             )
             return
         }
-
-
-
     }
 
     override fun onRequestPermissionsResult(
@@ -87,7 +107,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             // 권한 체크에 동의를 하지 않으면 안드로이드 종료
-            if (check_result == true) {
+            if (check_result) {
             } else {
                 finish()
             }

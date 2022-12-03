@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AddDataActivity">
+    tools:context=".AddDataToFirebaseActivity">
 
 
     <TextView
@@ -125,11 +125,11 @@
             android:text="뒤로가기" />
 
         <Button
-            android:id="@+id/recommendButton"
+            android:id="@+id/save_firebase_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="추천하기" />
+            android:text="옷장에 넣기" />
     </LinearLayout>
 
 </LinearLayout>

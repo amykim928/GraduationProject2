@@ -1,43 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Select3Activity">
+
 
     <TextView
         android:id="@+id/addTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/inter_600"
-        android:text="RUMOS"
+        android:gravity="center"
         android:textColor="@color/purple_500"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="RUMOS"
+
+        android:textSize="24dp" />
 
     <View
         android:id="@+id/titleLine"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginBottom="225dp"
-        android:background="#D4D2D9"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:background="#D4D2D9" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="131dp"
-        android:layout_marginBottom="411dp"
-        android:text="메뉴3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleLine" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:fontFamily="@font/inter_600"
+        android:gravity="center"
+        android:textColor="@color/purple_500"
+        android:text="\n\n저희 앱을 사용하시면, 아래 스타일에 따라 앱을 추천 받을 수 있어요!" />
+
+    <ImageView
+        android:id="@+id/example1View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/cloth333"
+        tools:srcCompat="@drawable/cloth333" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Left" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Right" />
+    </LinearLayout>
+
+</LinearLayout>

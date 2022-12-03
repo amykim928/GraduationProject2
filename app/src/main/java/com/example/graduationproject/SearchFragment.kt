@@ -8,11 +8,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.HorizontalScrollView
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.graduationproject.databinding.ActivityMainBinding
+import com.example.graduationproject.databinding.FragmentSearchBinding
+import com.example.graduationproject.dataset.closetData
+import com.example.graduationproject.dataset.recentData
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import java.sql.Timestamp
 
+private var recentList = mutableListOf<recentData>()
+lateinit var recentRecyclerAdapter: RecentRecyclerAdapter
 //검색페이지 Fragment
 class SearchFragment : Fragment(), View.OnClickListener{
+
+    lateinit var mLayoutManager: LinearLayoutManager
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -21,6 +38,49 @@ class SearchFragment : Fragment(), View.OnClickListener{
         val view = inflater.inflate(R.layout.fragment_search, container, false)
         val keyword = view.findViewById<EditText>(R.id.keywordText)
         val keywordBtn = view.findViewById<ImageButton>(R.id.keywordBtn)
+
+        //최근 사용자가 본 의상 recyclerView에 데이터 가져오기
+        //해당 옷 사진 누르면 detail 화면으로 이동(img_url, brand_id, category_id, style 가지고 있음)
+        val recentViewRecycle = view?.findViewById<RecyclerView>(R.id.recentViewRecycler)
+
+
+        recentRecyclerAdapter = context?.let { RecentRecyclerAdapter(it) }!!
+        recentViewRecycle?.adapter = recentRecyclerAdapter
+
+
+
+        val db = Firebase.firestore
+        db.collection("recentItem")//파이어베이스
+            .orderBy("created_at").limit(10)
+            .get() //필드에 해당하는 데이터 가져오기
+            .addOnSuccessListener { result -> //성공시
+                recentList.clear()
+                if (result.isEmpty){
+                    recentViewRecycle?.setVisibility(View.GONE);
+                }
+                else {
+                    for(doc in result) {
+                        Log.d("tag: ", "${doc.id} => ${doc.data}")
+                        recentList.add(
+                            recentData(
+                                doc.data["brand_id"] as String,
+                                doc.data["category_id"] as String,
+                                doc.data["img_url"] as String,
+                                doc.data["style"] as String
+
+                            )
+                        )
+                    }
+                    recentRecyclerAdapter.recentList = recentList
+                    recentRecyclerAdapter.notifyDataSetChanged() //adapter 새로고침
+
+                    val gridLayoutManager = GridLayoutManager(context, 1, LinearLayoutManager.HORIZONTAL, false)
+                    recentViewRecycle?.layoutManager = gridLayoutManager
+                }
+            }
+            .addOnFailureListener{ exception ->
+                Log.w("tag: ", "Error getting doc", exception)
+            }
 
         keywordBtn.setOnClickListener { //검색 버튼 activity
             val keywordStr = keyword.text.toString() //입력한 키워드
