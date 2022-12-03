@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,16 +18,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
 import com.example.graduationproject.classfier.YoloClassfier
 import com.example.graduationproject.classfier.YoloInterfaceClassfier
 import com.example.graduationproject.databinding.ActivityAddDataBinding
-import com.example.graduationproject.dataset.API
-import com.example.graduationproject.dataset.ImageFeatures
-import com.example.graduationproject.dataset.ImgDataModel
-import com.example.graduationproject.dataset.getImages
+import com.example.graduationproject.dataset.*
 
 import com.example.graduationproject.env.ImageUtils
 import com.example.graduationproject.tracker.MultiBoxTracker
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import retrofit2.Call
@@ -47,7 +48,7 @@ class AddDataActivity : AppCompatActivity() {
     lateinit var mRetrofitAPI: API.RetrofitAPI // 레트로핏 api객체입니다.
     lateinit var mCallImg:Call<String>
     lateinit var getImages:Call<getImages>
-
+    lateinit var getClIntro:Call<String>
     lateinit var resultList : List<YoloInterfaceClassfier.Recognition>
     //의상 검출을 위한 변수
 
@@ -88,9 +89,25 @@ class AddDataActivity : AppCompatActivity() {
 
         if(img_base=="exist"){
             binding.recommendImage.setImageBitmap(bitmap)
-
         } else{
             Glide.with(this).load(cimg_url).into(closetImage)
+            Glide.with(this)
+                .asBitmap()
+                .load(cimg_url)
+                .into(object : CustomTarget<Bitmap>(){
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        Log.i("glide bitmap","not ready")
+                    }
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
+                    ) {
+                        Log.i("glide bitmap","ready")
+                        bitmap=resource
+                        Log.i("glide bitmap",bitmap.width.toString())
+                    }
+                })
+
             val res_style = mappping1.filterValues { it == cstyle }.keys.toString()
             val res_style_toInt = res_style.replace("[^0-9]".toRegex(), "").toInt()
             binding.styleSpinner.setSelection(res_style_toInt)
@@ -115,8 +132,10 @@ class AddDataActivity : AppCompatActivity() {
 
             val styleInt=binding.styleSpinner.selectedItemId.toInt()
             val hashMap= hashMapOf(Pair(bitmapToString(bits),ImageFeatures(cloth_type,styleInt)))
-            getImages=mRetrofitAPI.postPredict(hashMap)
-            getImages.enqueue(mRetrofitCallback2)
+//            getImages=mRetrofitAPI.postPredict(hashMap)
+//            getImages.enqueue(mRetrofitCallback2)
+            getClIntro=mRetrofitAPI.getClIntro(hashMap)
+            getClIntro.enqueue(mRetrofitCallback3)
         }
 
         setRetrofit()
@@ -146,8 +165,6 @@ class AddDataActivity : AppCompatActivity() {
 
         val myadapter_style = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,style_items)
         binding.styleSpinner.adapter=myadapter_style
-//        Log.d("##########################", "$style_items")
-//        Log.d("##########################myadapter_style", "$myadapter_style")
 
         val myadapter_category=ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,category_items)
         binding.categorySpinner.adapter=myadapter_category
@@ -156,6 +173,43 @@ class AddDataActivity : AppCompatActivity() {
         }
 
     }
+    private val mRetrofitCallback3 =(object  :retrofit2.Callback<String>{
+        override fun onResponse(call: Call<String>, response: Response<String>) {
+            val result=response.body()
+            val intents= Intent(this@AddDataActivity,RecommendWithFirebase::class.java)
+
+            var cimg_url = intent.getStringExtra("img_url").toString()
+            var ccategory_id = intent.getStringExtra("category_id").toString()
+            var cstyle = intent.getStringExtra("style").toString()
+            var img_base = intent.getStringExtra("img_base").toString()
+
+            val storage=cacheDir
+            val baseName= "saveBase.jpg"
+            val tempFile = File(storage, baseName)
+            if (bitmap != null) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100, FileOutputStream(tempFile))
+            }
+            Log.i("check result",result.toString())
+
+            intents.putExtra("doc",result)
+            intents.putExtra("img_url",cimg_url)
+            intents.putExtra("category_id",ccategory_id)
+            intents.putExtra("style",cstyle)
+            intents.putExtra("img_base",img_base)
+
+            startActivity(intents)
+
+        }
+
+        override fun onFailure(call: Call<String>, t: Throwable) {
+            Log.i("tag retrofit2 :",t.message.toString())
+        }
+
+
+    })
+
+
+
 
     private val mRetrofitCallback2 =(object  :retrofit2.Callback<getImages>{
         override fun onResponse(call: Call<getImages>, response: Response<getImages>) {

@@ -71,7 +71,6 @@ class ClosetRecyclerAdapter(private val context: Context) : RecyclerView.Adapter
                         putExtra("category_id", closetData.category_id)
                         putExtra("style", closetData.style)
                         putExtra("img_base","exist")
-                        putExtra("doc_id",closetData.doc_id)
                     }.run { context.startActivity(this) }
                 }
 
@@ -82,7 +81,7 @@ class ClosetRecyclerAdapter(private val context: Context) : RecyclerView.Adapter
                         putExtra("img_url", closetData.img_url)
                         putExtra("category_id", closetData.category_id)
                         putExtra("style", closetData.style)
-                        putExtra("doc_id",closetData.doc_id)
+                        putExtra("img_base", "null")
                     }.run { context.startActivity(this) }
                 }
 

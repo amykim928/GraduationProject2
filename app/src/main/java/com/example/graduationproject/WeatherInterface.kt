@@ -1,5 +1,6 @@
 package com.example.graduationproject
-
+//
+//import com.example.graduationproject.dataset.WeatherAPIKey
 import com.example.graduationproject.dataset.WeatherAPIKey
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -11,7 +12,6 @@ import retrofit2.http.Query
 interface WeatherInterface {
     // getUltraSrtFcst : 초단기 예보 조회 + 인증키
     @GET("getUltraSrtFcst?serviceKey=${WeatherAPIKey.API_KEY}")
-
     fun GetWeather(@Query("numOfRows") num_of_rows : Int,   // 한 페이지 경과 수
                    @Query("pageNo") page_no : Int,          // 페이지 번호
                    @Query("dataType") data_type : String,   // 응답 자료 형식

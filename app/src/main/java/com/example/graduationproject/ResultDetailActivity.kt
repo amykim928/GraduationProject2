@@ -108,9 +108,11 @@ class ResultDetailActivity: AppCompatActivity() {
             })
 
         saveBtn.setOnClickListener { //저장하기 버튼 클릭 시
+            val timeLong=System.currentTimeMillis()
+            val timeId= "app$timeLong"
 
             val data = hashMapOf(
-                "cl_intro" to intent.getStringExtra("cl_intro").toString(),
+                "cl_intro" to timeId,
                 "img_url" to intent.getStringExtra("img_url").toString(),
                 "category_id" to intent.getStringExtra("category_id").toString(),
                 "style" to intent.getStringExtra("style").toString(),

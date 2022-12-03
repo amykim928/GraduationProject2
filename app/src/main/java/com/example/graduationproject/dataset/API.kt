@@ -22,7 +22,8 @@ interface API {
         @POST("/predict4")//서버에 GET요청을 할 주소를 입력
         fun postGetFeature(@Body img:String) : Call<onlyFeatureVector> //RecommendActivity에서 사용할 json파일 가져오는 메서드
 
-
+        @POST("/predict3")//서버에 GET요청을 할 주소를 입력
+        fun getClIntro(@Body img:HashMap<String,ImageFeatures>) : Call<String> //RecommendActivity에서 사용할 json파일 가져오는 메서드
 
         @POST("/getStyle")
         fun postImgStyle(@Body img: String):Call<String>

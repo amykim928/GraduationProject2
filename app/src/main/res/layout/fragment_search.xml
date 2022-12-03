@@ -222,7 +222,7 @@
             android:fontFamily="@font/inter_600"
             android:minWidth="0dp"
             android:paddingHorizontal="20dp"
-            android:text="바지"
+            android:text="팬츠"
             android:textColor="@color/white" />
     </LinearLayout>
 
