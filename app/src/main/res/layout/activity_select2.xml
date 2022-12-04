@@ -1,45 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Select2Activity">
+
 
     <TextView
         android:id="@+id/addTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/inter_600"
-        android:text="RUMOS"
+        android:gravity="center"
         android:textColor="@color/purple_500"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="RUMOS"
+
+        android:textSize="24dp" />
 
     <View
         android:id="@+id/titleLine"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginBottom="150dp"
-        android:background="#D4D2D9"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:background="#D4D2D9" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
+
+
+    <ImageView
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true" />
+
+    <ImageView
+        android:id="@+id/underView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="486dp"
-        android:text="메뉴2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleLine"
-        tools:ignore="MissingConstraints" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/leftButton"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/search_button"
+            android:fontFamily="@font/inter_600"
+            android:minWidth="0dp"
+            android:paddingHorizontal="20dp"
+            android:text="Left"
+            android:textColor="@color/white" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/rightButton"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/search_button"
+            android:fontFamily="@font/inter_600"
+            android:minWidth="0dp"
+            android:paddingHorizontal="20dp"
+            android:text="Right"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>

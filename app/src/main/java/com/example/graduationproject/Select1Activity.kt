@@ -1,5 +1,6 @@
 package com.example.graduationproject
 
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Point
@@ -91,7 +92,7 @@ class Select1Activity : AppCompatActivity() {
             cal.add(Calendar.DATE, -1).toString()
             base_date = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(cal.time)
         }
-
+        Log.i("response nx ny", "$nx / $ny")
         // 날씨 정보 가져오기
         // (한 페이지 결과 수 = 60, 페이지 번호 = 1, 응답 자료 형식-"JSON", 발표 날싸, 발표 시각, 예보지점 좌표)
         val call = WeatherObject.retrofitService.GetWeather(60, 1, "JSON", base_date, base_time, nx, ny)
@@ -102,6 +103,7 @@ class Select1Activity : AppCompatActivity() {
             override fun onResponse(call: Call<WEATHER>, response: Response<WEATHER>) {
                 if (response.isSuccessful) {
                     // 날씨 정보 가져오기
+                    Log.i("response weather",response.toString())
                     val it: List<ITEM> = response.body()!!.response.body.items.item
 
                     // 현재 시각부터 1시간 뒤의 날씨 6개를 담을 배열

@@ -43,27 +43,41 @@
         android:layout_height="wrap_content"
 
         android:adjustViewBounds="true"
-        app:srcCompat="@drawable/cloth333"
-        tools:srcCompat="@drawable/cloth333" />
+        app:srcCompat="@drawable/example0"
+        tools:srcCompat="@drawable/example0" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/leftButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Left" />
-
-        <Button
-            android:id="@+id/button4"
+            android:layout_height="42dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/search_button"
+            android:fontFamily="@font/inter_600"
+            android:minWidth="0dp"
+            android:paddingHorizontal="20dp"
+            android:text="Left"
+            android:textColor="@color/white" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/rightButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Right" />
+            android:layout_height="42dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/search_button"
+            android:fontFamily="@font/inter_600"
+            android:minWidth="0dp"
+            android:paddingHorizontal="20dp"
+            android:text="Right"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 
 </LinearLayout>

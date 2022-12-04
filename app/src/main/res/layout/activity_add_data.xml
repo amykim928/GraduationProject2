@@ -22,6 +22,7 @@
 
     <View
         android:id="@+id/titleLine"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="center"
@@ -29,6 +30,7 @@
 
     <ImageView
         android:id="@+id/recommendImage"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         tools:srcCompat="@tools:sample/avatars" />
@@ -43,7 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="의상 종류" />
+            android:text="의상 종류"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/category_spinner"
@@ -87,6 +92,7 @@
             android:id="@+id/textColor3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_weight="1"
             android:text="의상 종류" />
 
@@ -102,7 +108,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="의상 스타일" />
+            android:text="의상 스타일"
+            android:textSize="20dp"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/style_spinner"
@@ -114,22 +123,37 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
-
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="뒤로가기" />
+            android:layout_height="42dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/search_button"
+            android:fontFamily="@font/inter_600"
+            android:minWidth="0dp"
+            android:paddingHorizontal="20dp"
+            android:text="뒤로가기"
+            android:textColor="@color/white" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/recommendButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="추천하기" />
+            android:layout_height="42dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/search_button"
+            android:fontFamily="@font/inter_600"
+            android:minWidth="0dp"
+            android:paddingHorizontal="20dp"
+            android:text="추천하기"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 
 </LinearLayout>

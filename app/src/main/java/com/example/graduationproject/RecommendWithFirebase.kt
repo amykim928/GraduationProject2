@@ -25,6 +25,11 @@ import java.io.File
 class RecommendWithFirebase : AppCompatActivity() {
     lateinit var binding :ActivityRecommendWithFirebaseBinding
     var closetLists = mutableListOf<closetData>()
+    var topWear = mutableListOf<String>("탑", "블라우스","티셔츠","니트웨어",
+        "셔츠",  "브라탑", "후드티", "코트", "재킷",  "점퍼", "패딩",
+        "베스트", "가디건", "짚업", "드레스" , "점프수트", "맨투맨"
+    )
+    var underWear = mutableListOf<String>("청바지",  "팬츠", "스커트", "레깅스", "조거팬츠")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityRecommendWithFirebaseBinding.inflate(layoutInflater)
