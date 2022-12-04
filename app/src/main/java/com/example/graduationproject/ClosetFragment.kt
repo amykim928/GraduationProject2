@@ -1,5 +1,9 @@
 package com.example.graduationproject
 
+import android.app.Dialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,14 +12,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.dataset.closetData
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-
-//import kotlinx.android.synthetic.main.fragment_closet.*
 
 private var closetList = mutableListOf<closetData>()
 lateinit var closetRecycleViewAdapter: ClosetRecyclerAdapter
@@ -27,6 +28,8 @@ class ClosetFragment: Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         val view = inflater!!.inflate(R.layout.fragment_closet, container, false)
 
         val closetResultView = view?.findViewById<RecyclerView>(R.id.closetResultView)
@@ -37,9 +40,9 @@ class ClosetFragment: Fragment(){
 
         closetResultView?.adapter = closetRecycleViewAdapter
 
-//        val recyclerView1 = view?.findViewById<RecyclerView>(R.id.closetResultView)
-//
-//        recyclerView1?.adapter = context?.let { RecycleViewAdapter(it) }
+        //progress dialog 보여주기
+        val dialog = context?.let { LoadingDialog(it) } //fragment라서 이렇게 쓴 거고 액티비티에서는 <val dialog = LoadingDialog(this@ProfileActivity)>로 쓰면 될 겁니다!
+        dialog?.show()
 
         val db = Firebase.firestore
         db.collection("closetData") //파이어베이스
@@ -73,13 +76,31 @@ class ClosetFragment: Fragment(){
                     val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false) //2칸으로 나오게
                     closetResultView?.layoutManager = gridLayoutManager
                     emptyClosetResultView?.setVisibility(View.GONE)
+                    dialog?.dismiss() //데이터가 다 로딩되면 dialog 종료
                 }
             }
             .addOnFailureListener{ exception ->
                 Log.w("tag: ", "Error getting doc", exception)
             }
+
         return view
+    }
+
+    //44번째 줄 에서 사용 & 45, 79번째 줄에서 dialog 보여주고 종료시키는 코드와 함께 사용
+    class LoadingDialog(context: Context) : Dialog(context){
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_progress_loading)
+
+            // 취소 불가능
+            setCancelable(false)
+
+            // 배경 투명하게 바꿔줌
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        }
     }
 
 
 }
+

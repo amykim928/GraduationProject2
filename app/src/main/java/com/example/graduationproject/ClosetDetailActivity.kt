@@ -25,7 +25,7 @@ class ClosetDetailActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_closet_detail)
 
-        val toClosetIntent = Intent(this, MainActivity::class.java).apply {  }
+        val toClosetIntent = Intent(this, MainActivity::class.java)
         toClosetIntent.putExtra("fragment_id",3)
         toClosetIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         toClosetIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
