@@ -36,9 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
-            android:fontFamily="@font/inter_600"
             android:text="사용자의 옷장"
-            android:textColor="@color/purple_500"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_600"
             android:textSize="16dp" />
 
         <androidx.recyclerview.widget.RecyclerView
