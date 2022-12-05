@@ -1,4 +1,4 @@
-package com.example.graduationproject
+package com.example.graduationproject.adapters
 
 import com.example.graduationproject.dataset.WeatherModel
 
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.graduationproject.R
+import com.example.graduationproject.WeatherDetail
 
 class WeatherAdapter (var items : Array<WeatherModel>) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
     // 뷰 홀더 만들어서 반환, 뷰릐 레이아웃은 list_item_weather.xml

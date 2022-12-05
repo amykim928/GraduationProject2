@@ -141,7 +141,7 @@
             android:fontFamily="@font/inter_600"
             android:minWidth="0dp"
             android:paddingHorizontal="20dp"
-            android:text="치마"
+            android:text="스커트"
             android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton

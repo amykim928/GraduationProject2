@@ -10,16 +10,14 @@ import android.util.Base64
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.graphics.drawable.toBitmap
 import com.example.graduationproject.classfier.YoloClassfier
 import com.example.graduationproject.classfier.YoloInterfaceClassfier
 import com.example.graduationproject.databinding.ActivityAddDataToFirebaseBinding
 import com.example.graduationproject.dataset.API
-import com.example.graduationproject.dataset.ImageFeatures
-import com.example.graduationproject.dataset.getImages
 import com.example.graduationproject.dataset.onlyFeatureVector
 import com.example.graduationproject.env.ImageUtils
 import com.example.graduationproject.tracker.MultiBoxTracker
+import com.example.graduationproject.utils.LoadingDialog
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -30,11 +28,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
-import java.text.SimpleDateFormat
 
-class AddDataToFirebaseActivity : AppCompatActivity() {
+class AddDataWithGalleryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddDataToFirebaseBinding
     private lateinit var bitmap: Bitmap
     var text = ""
@@ -51,7 +47,7 @@ class AddDataToFirebaseActivity : AppCompatActivity() {
 
     //의상 검출을 위한 변수
     lateinit var detector: YoloClassfier
-
+    lateinit var dialog: LoadingDialog
     //특정 구역이 40%이상의 확률로 특정 카테고리로 판정할 때 쓰는 변수
     val MINIMUM_CONFIDENCE_TF_OD_API = 0.4f
 
@@ -100,8 +96,11 @@ class AddDataToFirebaseActivity : AppCompatActivity() {
 
         init()
         initbox()
-        setRetrofit()
         binding.recommendImage.setImageBitmap(bitmap)
+        dialog= LoadingDialog(this)
+        dialog.show()
+        setRetrofit()
+
 
     }
 
@@ -177,6 +176,7 @@ class AddDataToFirebaseActivity : AppCompatActivity() {
                 Log.i("tag retrofit :", result)
                 binding.styleSpinner.setSelection(result.toInt())
             }
+            dialog.dismiss()
         }
 
         override fun onFailure(call: Call<String>, t: Throwable) {

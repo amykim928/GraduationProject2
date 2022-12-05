@@ -5,14 +5,11 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.graduationproject.databinding.ActivitySelect2Binding
 import com.example.graduationproject.dataset.combinationData
-import com.example.graduationproject.dataset.recentData
+import com.example.graduationproject.utils.LoadingDialog
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -46,6 +43,9 @@ class Select2Activity: AppCompatActivity() {
             }
             setImages()
         }
+
+        val dialog = LoadingDialog(this)
+        dialog.show()
         val db = Firebase.firestore
         db.collection("combinationData")//파이어베이스
             .orderBy("cl_intro").limit(10)
@@ -73,6 +73,7 @@ class Select2Activity: AppCompatActivity() {
                 }
 //                Log.i("check list",combinationList[0].toString())
                 setImages()
+                dialog.dismiss()
             }
             .addOnFailureListener{ exception ->
                 Log.w("tag: ", "Error getting doc", exception)

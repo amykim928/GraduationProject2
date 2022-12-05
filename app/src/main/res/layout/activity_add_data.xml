@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AddDataActivity">
+    tools:context=".AddDataFromSearchActivity">
 
 
     <TextView
@@ -46,7 +46,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="의상 종류"
-            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_600"
+            android:layout_marginLeft="20dp"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -108,6 +110,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_600"
             android:text="의상 스타일"
             android:textSize="20dp"
             android:layout_marginLeft="5dp"

@@ -1,19 +1,19 @@
 package com.example.graduationproject
 
-import android.app.Dialog
-import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.graduationproject.adapters.ClosetRecyclerAdapter
 import com.example.graduationproject.dataset.closetData
+import com.example.graduationproject.utils.LoadingDialog
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -73,7 +73,13 @@ class ClosetFragment: Fragment(){
                     closetRecycleViewAdapter.closetList = closetList
                     closetRecycleViewAdapter.notifyDataSetChanged() //adapter 새로고침
 
+
+
                     val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false) //2칸으로 나오게
+//                    val decoration= DividerItemDecoration(context, GridLayout.HORIZONTAL)
+//                    val decoration2= DividerItemDecoration(context, GridLayout.VERTICAL)
+//                    closetResultView?.addItemDecoration(decoration)
+//                    closetResultView?.addItemDecoration(decoration2)
                     closetResultView?.layoutManager = gridLayoutManager
                     emptyClosetResultView?.setVisibility(View.GONE)
                     dialog?.dismiss() //데이터가 다 로딩되면 dialog 종료
@@ -86,20 +92,7 @@ class ClosetFragment: Fragment(){
         return view
     }
 
-    //44번째 줄 에서 사용 & 45, 79번째 줄에서 dialog 보여주고 종료시키는 코드와 함께 사용
-    class LoadingDialog(context: Context) : Dialog(context){
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            setContentView(R.layout.activity_progress_loading)
 
-            // 취소 불가능
-            setCancelable(false)
-
-            // 배경 투명하게 바꿔줌
-            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        }
-    }
 
 
 }

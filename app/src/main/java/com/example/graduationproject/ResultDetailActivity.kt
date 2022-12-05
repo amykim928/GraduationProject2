@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.example.graduationproject.dataset.API
 import com.example.graduationproject.dataset.onlyFeatureVector
+import com.example.graduationproject.utils.LoadingDialog
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -33,6 +34,7 @@ class ResultDetailActivity: AppCompatActivity() {
     lateinit var mRetrofit: Retrofit // 사용할 레트로핏 객체입니다.
     lateinit var mRetrofitAPI: API.RetrofitAPI // 레트로핏 api객체입니다.
     lateinit var bitmap: Bitmap
+    lateinit var dialog: LoadingDialog
     private var brand_name = listOf<String>(
         "","블랙야크", "유니클로", "abc마트", "", "X", "", "와릿이즌", "예일", "클로티"
     )

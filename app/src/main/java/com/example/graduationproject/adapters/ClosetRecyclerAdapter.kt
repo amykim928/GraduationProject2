@@ -1,4 +1,4 @@
-package com.example.graduationproject
+package com.example.graduationproject.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.graduationproject.ClosetDetailActivity
+import com.example.graduationproject.R
 import com.example.graduationproject.dataset.closetData
 import java.io.File
 import java.io.FileNotFoundException
@@ -48,7 +50,7 @@ class ClosetRecyclerAdapter(private val context: Context) : RecyclerView.Adapter
         lateinit var bitmap:Bitmap
         fun bind(closetData: closetData){
             if(closetData.img_base64.length>1000){
-                bitmap=stringToBitmap(closetData.img_base64)
+                bitmap= stringToBitmap(closetData.img_base64)
                 Glide.with(itemView).load(bitmap).into(closetclothImage)
                 closetclothImage.setOnClickListener{
                     val storage: File = context.cacheDir

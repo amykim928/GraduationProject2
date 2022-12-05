@@ -1,17 +1,14 @@
 package com.example.graduationproject
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.graduationproject.adapters.RecycleViewAdapter
 import com.example.graduationproject.dataset.clothData
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -92,6 +89,7 @@ class SearchResultActivity  : AppCompatActivity() {
                     val gridLayoutManager = GridLayoutManager(applicationContext, 2) //2칸으로 나오게
                     clothResultView.layoutManager = gridLayoutManager
                     emptyResultView.setVisibility(View.GONE);
+//                    dialog.dismiss()
                 }
             }
             .addOnFailureListener{ exception ->

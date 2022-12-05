@@ -8,20 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.HorizontalScrollView
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.graduationproject.databinding.ActivityMainBinding
-import com.example.graduationproject.databinding.FragmentSearchBinding
-import com.example.graduationproject.dataset.closetData
+import com.example.graduationproject.adapters.RecentRecyclerAdapter
 import com.example.graduationproject.dataset.recentData
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.sql.Timestamp
 
 private var recentList = mutableListOf<recentData>()
 lateinit var recentRecyclerAdapter: RecentRecyclerAdapter

@@ -1,18 +1,16 @@
-package com.example.graduationproject
+package com.example.graduationproject.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.graduationproject.R
+import com.example.graduationproject.ResultDetailActivity
 import com.example.graduationproject.dataset.recentData
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class RecentRecyclerAdapter(
     private val context: Context) : RecyclerView.Adapter<RecentRecyclerAdapter.ItemViewHolder>(){

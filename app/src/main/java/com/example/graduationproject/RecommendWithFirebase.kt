@@ -24,6 +24,7 @@ import java.io.File
 
 class RecommendWithFirebase : AppCompatActivity() {
     lateinit var binding :ActivityRecommendWithFirebaseBinding
+    var checkTop=1
     var closetLists = mutableListOf<closetData>()
     var topWear = mutableListOf<String>("탑", "블라우스","티셔츠","니트웨어",
         "셔츠",  "브라탑", "후드티", "코트", "재킷",  "점퍼", "패딩",
@@ -36,13 +37,24 @@ class RecommendWithFirebase : AppCompatActivity() {
         setContentView(binding.root)
 
         val cl_intro= intent.getStringExtra("doc")
+        val category_cloth=intent.getStringExtra("category_id")
+        if(category_cloth in topWear ){
+            checkTop=1
+        }else{
+            checkTop=0
+        }
         Log.i("get cl_intro1",cl_intro.toString())
-
-        val recommendimg=binding.recommendFirebaseImage
+        val recommendimg=binding.UpClothImage
         val cacheFile2= File(cacheDir, "saveBase.jpg").path
         val baseBitmap= BitmapFactory.decodeFile(cacheFile2)
+        if(checkTop==0){
+            binding.underClothImage.setImageBitmap(baseBitmap)
+            binding.underClothText.setText("참고 의상")
+        }else{
+            binding.UpClothImage.setImageBitmap(baseBitmap)
+            binding.UpClothText.setText("참고 의상")
+        }
 
-        binding.baseImage.setImageBitmap(baseBitmap)
 
 
         val db = Firebase.firestore
@@ -66,10 +78,23 @@ class RecommendWithFirebase : AppCompatActivity() {
                         ))
                     if(img_url=="null"){
                         val recommendBitmap=stringToBitmap(img64)
-                        binding.recommendFirebaseImage.setImageBitmap(recommendBitmap)
+                        if(checkTop==0){
+                            binding.UpClothImage.setImageBitmap(recommendBitmap)
+                            binding.UpClothText.setText("추천 의상")
+                        }else{
+                            binding.underClothImage.setImageBitmap(recommendBitmap)
+                            binding.underClothText.setText("추천 의상")
+                        }
                         break
                     }else{
-                        Glide.with(this).load(img_url).into(recommendimg)
+                        if(checkTop==0){
+                            Glide.with(this).load(img_url).into(binding.UpClothImage)
+                            binding.UpClothText.setText("추천 의상")
+                        }else{
+                            Glide.with(this).load(img_url).into(binding.underClothImage)
+                            binding.underClothText.setText("추천 의상")
+                        }
+
                         break
                     }
                 //이후 검색 결과 화면에서 옷을 선택한 후에 나오는 화면을 위해 데이터 가공하여 추가)
@@ -83,7 +108,7 @@ class RecommendWithFirebase : AppCompatActivity() {
             finish()
         }
         binding.saveCombinationButton.setOnClickListener {
-            Log.i("closetList check",closetLists.toString())
+//            Log.i("closetList check",closetLists.toString())
 
             val img_url=closetLists[0].img_url
             val category_id=closetLists[0].category_id

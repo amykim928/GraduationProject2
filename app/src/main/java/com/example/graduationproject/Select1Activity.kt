@@ -13,7 +13,9 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.graduationproject.adapters.WeatherAdapter
 import com.example.graduationproject.dataset.WeatherModel
+import com.example.graduationproject.utils.LoadingDialog
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -31,7 +33,7 @@ class Select1Activity : AppCompatActivity() {
     lateinit var curSky : TextView
     lateinit var curHuminity : TextView
     lateinit var selectClothDetail: TextView
-
+    lateinit var dialog: LoadingDialog
     private var base_date = "20221202"  // 발표 일자
     private var base_time = "1400"      // 발표 시각
     //private var nx = "55"               // 예보지점 X 좌표
@@ -51,7 +53,8 @@ class Select1Activity : AppCompatActivity() {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
         )
-
+        dialog = LoadingDialog(this)
+        dialog.show()
         // 권한 요청
         ActivityCompat.requestPermissions(this@Select1Activity, permissionList, 1)
 
@@ -136,7 +139,7 @@ class Select1Activity : AppCompatActivity() {
 
                     // 리사이클러 뷰에 데이터 연결
                     weatherRecyclerView.adapter = WeatherAdapter(weatherArr.sliceArray(1..5))
-
+                    dialog.dismiss() //데이터가 다 로딩되면 dialog 종료
                 }
             }
 

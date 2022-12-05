@@ -7,16 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
-import com.example.graduationproject.dataset.closetData
-import com.example.graduationproject.dbhelper.DbHelper.Companion.id
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
 
 
 class ClosetDetailActivity: AppCompatActivity() {
@@ -56,7 +50,7 @@ class ClosetDetailActivity: AppCompatActivity() {
 
         goRecommendBtn.setOnClickListener{
             Toast.makeText(applicationContext,"조합 보기", Toast.LENGTH_SHORT).show()
-            val intent = Intent(applicationContext, AddDataActivity::class.java)
+            val intent = Intent(applicationContext, AddDataFromSearchActivity::class.java)
             intent.putExtra("img_url", cimg_url)
             intent.putExtra("category_id", ccategory_id)
             intent.putExtra("style", cstyle)
