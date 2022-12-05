@@ -1,12 +1,16 @@
 package com.example.graduationproject
 
+import android.icu.lang.UCharacter.VerticalOrientation
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout.HORIZONTAL
+import android.widget.GridLayout.VERTICAL
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -69,8 +73,11 @@ class ClosetFragment: Fragment(){
                     }
                     closetRecycleViewAdapter.closetList = closetList
                     closetRecycleViewAdapter.notifyDataSetChanged() //adapter 새로고침
-
                     val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false) //2칸으로 나오게
+                    val decoration=DividerItemDecoration(context,HORIZONTAL)
+                    val decoration2=DividerItemDecoration(context, VERTICAL)
+                    closetResultView?.addItemDecoration(decoration)
+                    closetResultView?.addItemDecoration(decoration2)
                     closetResultView?.layoutManager = gridLayoutManager
                     emptyClosetResultView?.setVisibility(View.GONE)
                 }
