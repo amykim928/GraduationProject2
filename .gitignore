@@ -17,4 +17,7 @@
 .cxx
 local.properties
 /app/google-services.json
-/app/src/main/java/com/example/graduationproject/dataset/WeatherAPIKey.kt
+/app/src/main/java/com/example/graduationproject/dataset/WeatherAPIKey.ktz
+/gradle/wrapper/gradle-wrapper.jar
+/gradle/wrapper/gradle-wrapper.properties
+/gradlew

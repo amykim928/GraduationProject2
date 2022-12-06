@@ -67,7 +67,7 @@ class ClosetFragment: Fragment(){
                         val doc_id = doc.id
 
                         closetList.add(
-                            closetData(category, img_base64,cl_intro, img_url, style)  //이후 검색 결과 화면에서 옷을 선택한 후에 나오는 화면을 위해 데이터 가공하여 추가
+                            closetData(category, img_base64,cl_intro, img_url, style, doc_id)  //이후 검색 결과 화면에서 옷을 선택한 후에 나오는 화면을 위해 데이터 가공하여 추가
                             )
                     }
                     closetRecycleViewAdapter.closetList = closetList

@@ -75,6 +75,7 @@ class RecommendWithFirebase : AppCompatActivity() {
                             doc.data.get("cl_intro") as String,
                             doc.data.get("img_url") as String,
                             doc.data.get("style") as String,
+                            doc.data.get("doc_id") as String,
                         ))
                     if(img_url=="null"){
                         val recommendBitmap=stringToBitmap(img64)
