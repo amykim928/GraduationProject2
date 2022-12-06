@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">closet_app</string>
+    <string name="app_name">RUMOS</string>
     <string name="baseUrl">http://172.30.1.50:5000/</string>
 </resources>
 
     <!--    //http://10.0.2.2:5000  //에뮬레이터 구동-->
     <!--    // http://192.168.115.236:5000</string>
-
  172.30.1.254
  172.30.1.50:5000
-
  핫스팟시,-->
