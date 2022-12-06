@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_600"
         android:gravity="center"
-        android:textColor="@color/purple_500"
+        android:textStyle="bold"
         android:text="저희 앱을 사용하시면, 아래 스타일에 따라\n앱을 추천 받을 수 있어요!"
         android:textSize="16dp"
         android:layout_marginTop="20dp"/>
@@ -57,26 +57,25 @@
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/leftButton"
-            android:layout_width="wrap_content"
-            android:layout_height="42dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1.5"
-            android:background="@drawable/search_button"
-            android:fontFamily="@font/inter_600"
+            android:background="@drawable/ic_baseline_arrow_back_24"
             android:minWidth="0dp"
             android:paddingHorizontal="20dp"
-            android:text="Left"
             android:textColor="@color/white" />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/rightButton"
-            android:layout_width="wrap_content"
-            android:layout_height="42dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1.5"
-            android:background="@drawable/search_button"
-            android:fontFamily="@font/inter_600"
+            android:background="@drawable/ic_baseline_arrow_forward_24"
             android:minWidth="0dp"
             android:paddingHorizontal="20dp"
-            android:text="Right"
             android:textColor="@color/white" />
 
     </LinearLayout>
