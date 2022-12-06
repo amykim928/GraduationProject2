@@ -27,12 +27,14 @@ class Select2Activity: AppCompatActivity() {
         binding=ActivitySelect2Binding.inflate(layoutInflater)
         setContentView(binding.root)
         combinationNumber=0
+        binding.combinationNumber.text=(combinationNumber+1).toString()
         binding.leftButton.setOnClickListener {
             Log.i("check Number",combinationNumber.toString())
             combinationNumber-=1
             if(combinationNumber==-1){
                 combinationNumber=combinationList.size-1
             }
+            binding.combinationNumber.text=(combinationNumber+1).toString()
             setImages()
         }
         binding.rightButton.setOnClickListener {
@@ -41,6 +43,7 @@ class Select2Activity: AppCompatActivity() {
             if(combinationNumber==combinationList.size){
                 combinationNumber=0
             }
+            binding.combinationNumber.text=(combinationNumber+1).toString()
             setImages()
         }
 

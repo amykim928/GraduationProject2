@@ -198,6 +198,7 @@ class AddDataFromSearchActivity : AppCompatActivity() {
 
         override fun onFailure(call: Call<String>, t: Throwable) {
             Log.i("tag retrofit2 :", t.message.toString())
+            dialog.dismiss()
         }
 
 
