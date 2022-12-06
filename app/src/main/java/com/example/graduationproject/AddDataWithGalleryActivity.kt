@@ -181,6 +181,7 @@ class AddDataWithGalleryActivity : AppCompatActivity() {
 
         override fun onFailure(call: Call<String>, t: Throwable) {
             Log.i("tag retrofit :", t.message.toString())
+            dialog.dismiss()
         }
     })//Json객체를 응답받는 콜백 객체
 
