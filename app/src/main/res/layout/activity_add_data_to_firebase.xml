@@ -24,26 +24,33 @@
         android:id="@+id/titleLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:background="#D4D2D9" />
+        android:background="#D4D2D9"
+        android:layout_marginTop="20dp"/>
 
     <ImageView
         android:id="@+id/recommendImage"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_marginTop="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp">
 
         <TextView
             android:id="@+id/textColor1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="의상 종류" />
+            android:text="의상 종류"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_600"
+            android:textSize="20dp"/>
 
         <Spinner
             android:id="@+id/category_spinner"
@@ -57,6 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:visibility="gone">
 
         <TextView
@@ -64,7 +72,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="스타일" />
+            android:text="스타일"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_600"
+            android:textSize="20dp"/>
 
         <EditText
             android:id="@+id/editTextT2"
@@ -81,28 +92,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/textColor3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="의상 종류" />
+            android:text="의상 종류"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_600"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginHorizontal="20dp">
 
         <TextView
             android:id="@+id/textColor4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="의상 스타일" />
+            android:text="의상 스타일"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_600"
+            android:textSize="20dp"/>
 
         <Spinner
             android:id="@+id/style_spinner"
@@ -114,17 +133,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="50dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="1.5"
+            android:layout_weight="2"
             android:background="@drawable/search_button"
             android:fontFamily="@font/inter_600"
             android:minWidth="0dp"
@@ -137,8 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="1.5"
+            android:layout_weight="2"
             android:background="@drawable/search_button"
             android:fontFamily="@font/inter_600"
             android:minWidth="0dp"

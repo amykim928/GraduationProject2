@@ -20,21 +20,26 @@
 
     <View
         android:layout_width="match_parent"
+        android:background="#D4D2D9"
         android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:background="#D4D2D9" />
+        android:layout_marginTop="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp">
 
         <TextView
             android:id="@+id/UpClothText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="추천 의상" />
+            android:text="추천 의상"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_600"
+            android:textSize="16dp"/>
 
         <ImageView
             android:id="@+id/recommendImage"
@@ -47,14 +52,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp">
 
         <TextView
             android:id="@+id/underClothText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="스타일 참조" />
+            android:text="스타일 참조"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_600"
+            android:textSize="16dp"/>
 
         <ImageView
             android:id="@+id/styleImage"
@@ -67,14 +77,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp">
 
         <TextView
             android:id="@+id/textSimilar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="유사도" />
+            android:text="유사도"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_600"
+            android:textSize="16dp"/>
 
         <EditText
             android:id="@+id/editTextT1"
@@ -84,7 +99,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="00422864"
-            android:textSize="24dp" />
+            android:textSize="20dp" />
     </LinearLayout>
 </LinearLayout>
 

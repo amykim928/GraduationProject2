@@ -25,8 +25,8 @@
         android:id="@+id/titleLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:background="#D4D2D9" />
+        android:background="#D4D2D9"
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -35,13 +35,16 @@
         android:fontFamily="@font/inter_600"
         android:gravity="center"
         android:textColor="@color/purple_500"
-        android:text="\n\n저희 앱을 사용하시면, 아래 스타일에 따라 앱을 추천 받을 수 있어요!" />
+        android:text="저희 앱을 사용하시면, 아래 스타일에 따라\n앱을 추천 받을 수 있어요!"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"/>
 
     <ImageView
         android:id="@+id/example1View"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
         android:adjustViewBounds="true"
         app:srcCompat="@drawable/example0"
         tools:srcCompat="@drawable/example0" />
@@ -49,14 +52,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/leftButton"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_weight="1.5"
             android:background="@drawable/search_button"
             android:fontFamily="@font/inter_600"
@@ -69,7 +71,6 @@
             android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_weight="1.5"
             android:background="@drawable/search_button"
             android:fontFamily="@font/inter_600"
