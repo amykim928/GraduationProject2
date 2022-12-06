@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">closet_app</string>
+    <string name="app_name">RUMOS</string>
     <string name="baseUrl">http://10.0.2.2:5000/</string>
 </resources>
 
