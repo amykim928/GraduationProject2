@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import com.example.graduationproject.R
 
-//44번째 줄 에서 사용 & 45, 79번째 줄에서 dialog 보여주고 종료시키는 코드와 함께 사용
 class LoadingDialog(context: Context) : Dialog(context){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

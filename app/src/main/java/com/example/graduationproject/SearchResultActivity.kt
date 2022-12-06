@@ -22,7 +22,7 @@ private var category_name =  listOf<String>(
     "점퍼", "패딩", "베스트", "가디건", "짚업", "점프수트", "드레스")
 
 private var brand_name = listOf<String>(
-    "","블랙야크", "유니클로", "abc마트", "", "X", "", "와릿이즌", "예일", "클로티"
+    "", "로라로라","유니클로", "스파오", "아뜨랑스", "x", "리", "와릿이즌", "예일", "클로티"
 )
 
 class SearchResultActivity  : AppCompatActivity() {
