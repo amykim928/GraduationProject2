@@ -63,6 +63,19 @@
             android:paddingHorizontal="20dp"
             android:text="Left"
             android:textColor="@color/white" />
+
+
+        <TextView
+            android:id="@+id/combinationNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/inter_600"
+            android:gravity="center"
+            android:textColor="@color/purple_500"
+            android:textSize="16dp"
+            android:text="1" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/rightButton"
             android:layout_width="wrap_content"
