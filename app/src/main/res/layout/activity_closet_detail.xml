@@ -29,60 +29,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleLine"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/closetImage"
-            android:layout_width="256dp"
-            android:layout_height="256dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/goRecommendBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/search_button"
-            android:fontFamily="@font/inter_600"
-            android:minWidth="0dp"
-            android:paddingHorizontal="40dp"
-            android:text="조합 보기"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/closetImage"
-            tools:ignore="MissingConstraints" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addTitle">
 
         <ImageButton
             android:id="@+id/deleteBtn"
             android:layout_width="51dp"
             android:layout_height="47dp"
             android:background="#00FFFFFF"
-            app:layout_constraintEnd_toEndOf="@+id/closetImage"
-            app:layout_constraintTop_toTopOf="@+id/closetImage"
             app:srcCompat="@drawable/ic_outline_delete_24" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/closetImage"
+            android:layout_width="256dp"
+            android:layout_height="256dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/goRecommendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/search_button"
+            android:fontFamily="@font/inter_600"
+            android:minWidth="0dp"
+            android:paddingHorizontal="40dp"
+            android:text="조합 보기"
+            android:textColor="@color/white"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

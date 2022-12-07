@@ -62,6 +62,7 @@ class ClosetDetailActivity: AppCompatActivity() {
 
         val db = Firebase.firestore
         deleteBtn.setOnClickListener{
+            Log.d("cdoc_id: ", cdoc_id)
             Toast.makeText(applicationContext,"삭제 되었습니다.", Toast.LENGTH_SHORT).show()
             db.collection("closetData").document(cdoc_id).delete()
             startActivity(toClosetIntent)
